@@ -3,7 +3,7 @@ import Banner from '../../Components/HomeCom/Banner';
 
 const Home = () => {
     return (
-        <div>
+        <div className='m-0 p-0'>
             <Banner />
         </div>
     );
