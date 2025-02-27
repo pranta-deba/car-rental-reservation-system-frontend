@@ -34,12 +34,12 @@ const Navbar = () => {
             <NavLink to="/signup" className="block py-2 px-4">Sign up</NavLink>
         </li>
         <li>
-            <NavLink to="/signin" className="block py-2 px-4 primary-bg text-white rounded-3xl">Sign in</NavLink>
+            <NavLink to="/signin" className={`${darkMode ? "inline-block md:inline" : ""} block py-2 px-4 bg-[#FF6E00] text-white rounded-3xl hover:bg-[#FF6E00A3]`}>Sign in</NavLink>
         </li>
         <button
             onClick={() => setDarkMode(!darkMode)}
             title={darkMode ? "Light" : "Dark"}
-            className="text-2xl cursor-pointer"
+            className="block py-2 px-4 text-2xl cursor-pointer"
         >
             {darkMode ? "☀️" : "🌙"}
         </button>

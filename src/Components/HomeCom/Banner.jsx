@@ -25,7 +25,7 @@ const Banner = () => {
                         placeholder="Search for cars..."
                         className="flex-grow px-4 py-2 rounded-l-full focus:outline-none text-black"
                     />
-                    <button className="bg-[#FF6E00] hover:bg-[#FF6E00A3] text-white px-6 py-2 rounded-r-full font-semibold">Search</button>
+                    <button className="bg-[#FF6E00] hover:bg-[#FF6E00A3] cursor-pointer text-white px-6 py-2 rounded-r-full font-semibold">Search</button>
                 </div>
             </div>
         </div>
