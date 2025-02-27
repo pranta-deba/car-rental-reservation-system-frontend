@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { TiThMenuOutline } from "react-icons/ti";
 import { AiOutlineClose } from "react-icons/ai";
+import useGetContext from '../../Hooks/UseContext/UseGetContext';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const all = useGetContext();
+    console.log(all)
 
     const navLinks = <>
         <li>
