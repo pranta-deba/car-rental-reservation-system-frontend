@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { TiThMenuOutline } from "react-icons/ti";
 import { AiOutlineClose } from "react-icons/ai";
-import useGetContext from '../../Hooks/UseContext/UseGetContext';
+
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const all = useGetContext();
-    console.log(all)
+    const [darkMode, setDarkMode] = useState(
+        localStorage.getItem("theme") === "dark"
+    );
+
+    useEffect(() => {
+        if (darkMode) {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem("theme", "light");
+        }
+    }, [darkMode]);
 
     const navLinks = <>
         <li>
@@ -19,6 +30,19 @@ const Navbar = () => {
         <li>
             <NavLink to="/contact" className="block py-2 px-4">Contact</NavLink>
         </li>
+        <li>
+            <NavLink to="/signup" className="block py-2 px-4">Sign up</NavLink>
+        </li>
+        <li>
+            <NavLink to="/signin" className="block py-2 px-4 primary-bg text-white rounded-3xl">Sign in</NavLink>
+        </li>
+        <button
+            onClick={() => setDarkMode(!darkMode)}
+            title={darkMode ? "Light" : "Dark"}
+            className="text-2xl cursor-pointer"
+        >
+            {darkMode ? "☀️" : "🌙"}
+        </button>
     </>
 
     return (
@@ -38,7 +62,10 @@ const Navbar = () => {
                     {isOpen ? <span className='font-bold text-2xl primary-text'><AiOutlineClose /></span> : <span className='font-bold text-2xl primary-text'><TiThMenuOutline /></span>}
                 </button>
                 <ul
-                    className={`md:flex md:space-x-6 absolute md:static w-full left-0 md:w-auto bg-white shadow-md md:shadow-none md:flex-row flex-col items-center z-50 p-4 md:p-0 transition-all ease-in-out duration-300 ${isOpen ? "top-16" : "top-[-400px] "}`}
+                    className={`md:flex md:space-x-4 absolute md:static w-full left-0 md:w-auto 
+                        ${darkMode ? 'bg-[#001933]' : "bg-white"}  
+                        md:bg-transparent shadow-md md:shadow-none md:flex-row flex-col items-center z-50 p-4 md:p-0 transition-all ease-in-out duration-300 
+                        ${isOpen ? "top-16" : "top-[-400px] "}`}
                 >
                     {navLinks}
                 </ul>

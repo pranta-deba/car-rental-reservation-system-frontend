@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+html {
+    transition: background-color 0.2s, color 0.2s;
+}
+
+/* Set the default theme */
+html.light {
+    background-color: white;
+    color: #001933;
+}
+
+html.dark {
+    background-color: #001933;
+    /* Dark gray */
+    color: white;
+}
+
 .primary-text {
     color: #FF6E00;
 }
