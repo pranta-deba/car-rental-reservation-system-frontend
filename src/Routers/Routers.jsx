@@ -12,7 +12,15 @@ export const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home />,
-            }
+            },
+            {
+                path: "/about",
+                element: "about",
+            },
+            {
+                path: "/contact",
+                element: "contact",
+            },
         ],
     },
 ]);
