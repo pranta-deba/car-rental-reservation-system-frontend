@@ -42,15 +42,15 @@ const SignIn = () => {
                                 <a rel="noopener noreferrer">Forgot Password?</a>
                             </div>
                         </div>
-                        <button type='submit' className="block w-full p-3 text-center rounded-sm bg-[#FF7C03] cursor-pointer hover:bg-[#FF7C03A3]">Sign in</button>
+                        <button type='submit' className="block w-full p-3 text-center rounded-sm bg-[#FF7C03] cursor-pointer hover:bg-[#FF7C03A3] uppercase">Sign in</button>
                     </form>
                     <div className="flex items-center pt-4 space-x-1">
                         <div className="flex-1 h-px sm:w-16 dark:bg-gray-300"></div>
-                        <p className="px-3 text-sm dark:text-gray-600">Login with social accounts</p>
+                        <p className="px-3 text-sm dark:text-gray-600">Login with</p>
                         <div className="flex-1 h-px sm:w-16 dark:bg-gray-300"></div>
                     </div>
                     <div className="flex justify-center space-x-4">
-                        <button aria-label="Log in with Google" className="p-2 rounded-sm flex items-center cursor-pointer shadow w-full justify-center">
+                        <button aria-label="Log in with Google" className="p-2 rounded-sm flex items-center cursor-pointer  w-full justify-center">
                             <FcGoogle />oogle 
                         </button>
                     </div>
