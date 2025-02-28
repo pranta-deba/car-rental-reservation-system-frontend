@@ -5,7 +5,7 @@ const Banner = () => {
         <div className="relative w-full h-screen overflow-hidden z-10 m-0 p-0">
             {/* Background Video */}
             <video
-                className="absolute inset-0 top-0 left-0 w-full h-full object-cover blur-xs"
+                className="absolute inset-0 top-0 left-0 w-full h-full object-cover blur-[3px]"
                 src="./car.mp4"
                 autoPlay
                 loop
