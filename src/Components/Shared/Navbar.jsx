@@ -46,8 +46,8 @@ const Navbar = () => {
         >
             {darkMode ? "☀️" : "🌙"}
         </button>
-         {/* profile dropdown md */}
-         <ProfileDropdown size='md' />
+        {/* profile dropdown md */}
+        <ProfileDropdown size='md' darkMode={darkMode}/>
     </>
 
     return (
@@ -68,7 +68,7 @@ const Navbar = () => {
                         {isOpen ? <span className='font-bold text-2xl primary-text'><AiOutlineClose /></span> : <span className='font-bold text-2xl primary-text'><TiThMenuOutline /></span>}
                     </button>
                     {/* profile dropdown sm */}
-                    <ProfileDropdown size='sm' />
+                    <ProfileDropdown size='sm' darkMode={darkMode}/>
 
                     <button
                         onClick={() => setDarkMode(!darkMode)}

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const ProfileDropdown = ({ size }) => {
+const ProfileDropdown = ({ size, darkMode }) => {
     const [open, setOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -33,7 +33,9 @@ const ProfileDropdown = ({ size }) => {
             </button>
 
             {open && (
-                <div className="flex shadow-lg border border-[#FF6E00] rounded-bl-2xl rounded-br-2xl rounded-tl-2xl bg-white w-[200px] absolute flex-col gap-3 p-4 top-12 right-2 z-[60]">
+                <div className={`flex shadow-lg border border-[#FF6E00] rounded-bl-2xl rounded-br-2xl rounded-tl-2xl 
+                ${darkMode ? "bg-[#001933]" : "bg-white"} 
+                w-[200px] absolute flex-col gap-3 p-4 top-12 right-2 z-[60]`}>
                     <Link
                         to="/profile"
                         className="hover:bg-[#FF6E00] hover:text-white p-2 rounded-md"
