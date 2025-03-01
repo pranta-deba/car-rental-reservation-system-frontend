@@ -4,8 +4,10 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import toast from 'react-hot-toast';
 import { FcGoogle } from "react-icons/fc";
 import { IoMdHome } from "react-icons/io";
+import useGetContext from '../../Hooks/UseContext/useGetContext';
 
 const SignIn = () => {
+    const { googleSignIn } = useGetContext();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,8 +21,12 @@ const SignIn = () => {
 
 
     const handleGoogleLogin = async () => {
-        // Google OAuth Login Code Here
-        toast.success('Google OAuth Login Code Here');
+        googleSignIn()
+            .then((user) => {
+                console.log(user)
+            }).catch((err) => {
+                console.log(err)
+            })
     };
 
     return (
