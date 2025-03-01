@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { TiThMenuOutline } from "react-icons/ti";
 import { AiOutlineClose } from "react-icons/ai";
+import ProfileDropdown from '../Dropdown/ProfileDropdown';
 
 
 const Navbar = () => {
@@ -9,6 +10,8 @@ const Navbar = () => {
     const [darkMode, setDarkMode] = useState(
         localStorage.getItem("theme") === "dark"
     );
+
+
 
     useEffect(() => {
         if (darkMode) {
@@ -39,10 +42,12 @@ const Navbar = () => {
         <button
             onClick={() => setDarkMode(!darkMode)}
             title={darkMode ? "Light" : "Dark"}
-            className="block py-2 px-4 text-2xl cursor-pointer"
+            className="hidden md:block py-2 px-4 text-2xl cursor-pointer"
         >
             {darkMode ? "☀️" : "🌙"}
         </button>
+         {/* profile dropdown md */}
+         <ProfileDropdown size='md' />
     </>
 
     return (
@@ -55,14 +60,27 @@ const Navbar = () => {
                     <span>R</span>
                     <span className='primary-text'>ent</span>
                 </Link>
-                <button
-                    className="md:hidden"
-                    onClick={() => setIsOpen(!isOpen)}
-                >
-                    {isOpen ? <span className='font-bold text-2xl primary-text'><AiOutlineClose /></span> : <span className='font-bold text-2xl primary-text'><TiThMenuOutline /></span>}
-                </button>
+                <div className='flex flex-row-reverse gap-3 justify-center items-center'>
+                    <button
+                        className="md:hidden"
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
+                        {isOpen ? <span className='font-bold text-2xl primary-text'><AiOutlineClose /></span> : <span className='font-bold text-2xl primary-text'><TiThMenuOutline /></span>}
+                    </button>
+                    {/* profile dropdown sm */}
+                    <ProfileDropdown size='sm' />
+
+                    <button
+                        onClick={() => setDarkMode(!darkMode)}
+                        title={darkMode ? "Light" : "Dark"}
+                        className="block md:hidden py-2 px-2 text-2xl cursor-pointer"
+                    >
+                        {darkMode ? "☀️" : "🌙"}
+                    </button>
+
+                </div>
                 <ul
-                    className={`md:flex md:space-x-4 absolute md:static w-full left-0 md:w-auto 
+                    className={`md:flex md:space-x-3 absolute md:static w-full left-0 md:w-auto 
                         ${darkMode ? 'bg-[#001933]' : "bg-white"}  
                         md:bg-transparent shadow-md md:shadow-none md:flex-row flex-col items-center z-50 p-4 md:p-0 transition-all ease-in-out duration-300 
                         ${isOpen ? "top-16" : "top-[-400px] "}`}
