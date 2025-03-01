@@ -5,7 +5,7 @@ import { auth } from '../Services/firebase.config';
 
 export const AppContext = createContext(null);
 const AppProvider = ({ children }) => {
-    const [user, setUser] = useState(true);
+    const [user, setUser] = useState(null);
     const [userLoader, setUserLoader] = useState(null);
     const [theme, setTheme] = useState('light');
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import toast from 'react-hot-toast';
 import { FcGoogle } from "react-icons/fc";
@@ -8,6 +8,7 @@ import useGetContext from '../../Hooks/UseContext/useGetContext';
 
 const SignIn = () => {
     const { googleSignIn } = useGetContext();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -24,6 +25,7 @@ const SignIn = () => {
         googleSignIn()
             .then((user) => {
                 console.log(user)
+                navigate('/')
             }).catch((err) => {
                 console.log(err)
             })

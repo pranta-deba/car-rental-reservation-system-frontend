@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import useGetContext from '../../Hooks/UseContext/useGetContext';
 
 const ProfileDropdown = ({ size, darkMode }) => {
     const [open, setOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const { googleLogOut } = useGetContext();
 
 
     useEffect(() => {
@@ -17,6 +19,10 @@ const ProfileDropdown = ({ size, darkMode }) => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
+    const handleLogOut = async () => {
+        googleLogOut();
+    };
     return (
         <div
             className={`${size === 'sm' ? "flex md:hidden" : ""} ${size === 'md' ? "hidden md:flex" : ""} relative`}
@@ -41,9 +47,11 @@ const ProfileDropdown = ({ size, darkMode }) => {
                         Profile
                     </Link>
                     <Link
-                        to="/logout"
                         className="hover:bg-[#FF6E00] hover:text-white p-2 rounded-md"
-                        onClick={() => setOpen(false)}
+                        onClick={() => {
+                            setOpen(false);
+                            handleLogOut();
+                        }}
                     >
                         Log out
                     </Link>
