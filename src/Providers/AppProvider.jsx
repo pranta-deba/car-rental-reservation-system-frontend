@@ -1,10 +1,36 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useState } from 'react';
+import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
+import { createContext, useEffect, useState } from 'react';
+import { auth } from '../Services/firebase.config';
 
 export const AppContext = createContext(null);
 const AppProvider = ({ children }) => {
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(null);
+    const [userLoader, setUserLoader] = useState(true);
     const [theme, setTheme] = useState('light');
+
+    const googleProvider = new GoogleAuthProvider();
+
+    useEffect(() => {
+        setUserLoader(true);
+        const unSubscribed = onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser) {
+                setUser(currentUser);
+                setUserLoader(false);
+            } else {
+                setUser(null);
+                setUserLoader(false);
+            }
+        })
+        return () => unSubscribed();
+    }, [])
+
+    const googleSignIn = () => {
+        return signInWithPopup(auth, googleProvider);
+    }
+    const googleLogOut = () => {
+        return signOut(auth);
+    }
 
 
 
@@ -12,7 +38,10 @@ const AppProvider = ({ children }) => {
         user,
         setUser,
         theme,
-        setTheme
+        setTheme,
+        googleSignIn,
+        googleLogOut,
+        userLoader
     }
 
     return <AppContext.Provider value={appValue}>{children}</AppContext.Provider>
