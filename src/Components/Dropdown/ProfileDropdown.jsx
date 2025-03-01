@@ -19,10 +19,7 @@ const ProfileDropdown = ({ size, darkMode }) => {
     }, []);
     return (
         <div
-            className={`
-                ${size === 'sm' ? "flex md:hidden" : ""} 
-                ${size === 'md' ? "hidden md:flex" : ""} 
-                relative`}
+            className={`${size === 'sm' ? "flex md:hidden" : ""} ${size === 'md' ? "hidden md:flex" : ""} relative`}
             ref={dropdownRef}
         >
             <button

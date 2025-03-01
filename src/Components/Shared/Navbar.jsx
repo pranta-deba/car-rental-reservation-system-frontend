@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { TiThMenuOutline } from "react-icons/ti";
 import { AiOutlineClose } from "react-icons/ai";
 import ProfileDropdown from '../Dropdown/ProfileDropdown';
+import useGetContext from '../../Hooks/UseContext/useGetContext';
 
 
 const Navbar = () => {
@@ -10,8 +11,7 @@ const Navbar = () => {
     const [darkMode, setDarkMode] = useState(
         localStorage.getItem("theme") === "dark"
     );
-
-
+    const { user } = useGetContext();
 
     useEffect(() => {
         if (darkMode) {
@@ -33,12 +33,12 @@ const Navbar = () => {
         <li>
             <NavLink to="/contact" className="block py-2 px-4">Contact</NavLink>
         </li>
-        <li>
+        {!user && <> <li>
             <NavLink to="/signup" className="block py-2 px-4">Sign up</NavLink>
         </li>
-        <li>
-            <NavLink to="/signin" className={`${darkMode ? "inline-block md:inline" : ""} block py-2 px-4 bg-[#FF6E00] text-white rounded-3xl hover:bg-[#FF6E00A3]`}>Sign in</NavLink>
-        </li>
+            <li>
+                <NavLink to="/signin" className={`${darkMode ? "inline-block md:inline" : ""} block py-2 px-4 bg-[#FF6E00] text-white rounded-3xl hover:bg-[#FF6E00A3]`}>Sign in</NavLink>
+            </li></>}
         <button
             onClick={() => setDarkMode(!darkMode)}
             title={darkMode ? "Light" : "Dark"}
@@ -47,7 +47,7 @@ const Navbar = () => {
             {darkMode ? "☀️" : "🌙"}
         </button>
         {/* profile dropdown md */}
-        <ProfileDropdown size='md' darkMode={darkMode}/>
+        {user && <ProfileDropdown size='md' darkMode={darkMode} />}
     </>
 
     return (
@@ -68,7 +68,7 @@ const Navbar = () => {
                         {isOpen ? <span className='font-bold text-2xl primary-text'><AiOutlineClose /></span> : <span className='font-bold text-2xl primary-text'><TiThMenuOutline /></span>}
                     </button>
                     {/* profile dropdown sm */}
-                    <ProfileDropdown size='sm' darkMode={darkMode}/>
+                    {user && <ProfileDropdown size='sm' darkMode={darkMode} />}
 
                     <button
                         onClick={() => setDarkMode(!darkMode)}
