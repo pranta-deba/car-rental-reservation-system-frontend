@@ -15,7 +15,14 @@ const AppProvider = ({ children }) => {
         setUserLoader(true);
         const unSubscribed = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
-                setUser(currentUser);
+                const { displayName, email, phoneNumber, photoURL, metadata } = currentUser;
+                setUser({
+                    name: displayName,
+                    email,
+                    phone: phoneNumber,
+                    image: photoURL,
+                    metadata
+                });
                 setUserLoader(false);
             } else {
                 setUser(null);
