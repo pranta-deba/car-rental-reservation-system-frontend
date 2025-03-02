@@ -17,8 +17,18 @@ const SignUp = () => {
         const password = e.target.password.value;
         const phone = e.target.phone.value;
         const address = e.target.address.value;
+        console.log({ email, password, phone, address, name})
         if (!name || !email || !password || !phone || !address) {
             toast.error('Please fill in all fields');
+            return;
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            toast.error('Please enter a valid email address');
+            return;
+        }
+        if (password.length < 6) {
+            toast.error('Password must be at least 6 characters long');
             return;
         }
     };
@@ -54,7 +64,7 @@ const SignUp = () => {
                         <form onSubmit={handleSubmit} className="space-y-3">
                             <div className="space-y-1 text-sm">
                                 <label htmlFor="name" className="block dark:text-gray-600">Name</label>
-                                <input type="text" name="email" id="name" placeholder="Name" className="w-full px-4 py-3 rounded-md border-none bg-[#E78B401F] focus:outline-[#E78B40]" />
+                                <input type="text" name="name" id="name" placeholder="Name" className="w-full px-4 py-3 rounded-md border-none bg-[#E78B401F] focus:outline-[#E78B40]" />
                             </div>
                             <div className='w-full flex gap-3'>
                                 <div className="flex-1 text-sm">
