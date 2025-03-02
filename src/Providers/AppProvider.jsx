@@ -2,6 +2,8 @@
 import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import { auth } from '../Services/firebase.config';
+import { getToken } from '../Utils/token.config';
+import AxiosInstanceWithToken from '../Config/AxiosInstanceWithToken';
 
 export const AppContext = createContext(null);
 const AppProvider = ({ children }) => {
@@ -14,6 +16,7 @@ const AppProvider = ({ children }) => {
     useEffect(() => {
         setUserLoader(true);
         const unSubscribed = onAuthStateChanged(auth, (currentUser) => {
+            const token = getToken();
             if (currentUser) {
                 const { displayName, email, phoneNumber, photoURL, metadata } = currentUser;
                 setUser({
@@ -24,6 +27,19 @@ const AppProvider = ({ children }) => {
                     metadata
                 });
                 setUserLoader(false);
+            } else if (token) {
+                AxiosInstanceWithToken.get('/auth/signin-with-token').then(res => {
+                    if (res?.data?.success) {
+                        setUser(res?.data?.data);
+                        setUserLoader(false);
+                    }
+                }).catch(err => {
+                    if (!err?.response?.data?.success) {
+                        signOut(auth);
+                        setUser(null);
+                        setUserLoader(false);
+                    }
+                })
             } else {
                 setUser(null);
                 setUserLoader(false);
