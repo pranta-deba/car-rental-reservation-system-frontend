@@ -5,6 +5,7 @@ import { IoCloseCircle } from "react-icons/io5";
 const CreateCar = () => {
     const [features, setFeatures] = useState([]);
     const featureRef = useRef();
+    const [uploadImage, setUploadImage] = useState('');
 
     const handleDeleteFeatures = (idx) => {
         setFeatures(features.filter((_, i) => i !== idx));
@@ -18,9 +19,12 @@ const CreateCar = () => {
     }
 
     const handleImageChange = (e) => {
-
+        const file = e.target.files?.[0];
+        if (file) {
+            const imageUrl = URL.createObjectURL(file);
+            setUploadImage(imageUrl);
+        }
     }
-
     return (
         <div>
             <section className="p-6">
@@ -87,7 +91,7 @@ const CreateCar = () => {
                             <div className="col-span-full sm:col-span-3">
                                 <label htmlFor="bio" className="text-sm">Photo</label>
                                 <div className="flex items-center space-x-2">
-                                    <img src="" alt="" className="w-10 h-10 dark:bg-gray-500 rounded-full" />
+                                    <img src={uploadImage ? uploadImage : 'png.png'} alt="" className="w-10 h-10 dark:bg-gray-500 rounded-full" />
                                     <input onChange={handleImageChange} type="file" className="w-full px-4 py-3 rounded-md border-none bg-[#E78B401F] focus:outline-[#E78B40] cursor-pointer" />
                                 </div>
                             </div>
