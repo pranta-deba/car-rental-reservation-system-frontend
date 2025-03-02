@@ -17,7 +17,6 @@ const CreateCar = () => {
             featureRef.current.value = '';
         }
     }
-
     const handleImageChange = (e) => {
         const file = e.target.files?.[0];
         if (file) {
@@ -25,10 +24,21 @@ const CreateCar = () => {
             setUploadImage(imageUrl);
         }
     }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const name = e.target.name.value;
+        const description = e.target.description.value;
+        const color = e.target.color.value;
+        const isElectric = e.target.isElectric.value;
+        const pricePerHour = e.target.pricePerHour.value;
+        const image = e.target.image;
+        console.log({ name, description, color, isElectric, pricePerHour, image });
+
+    }
     return (
         <div>
             <section className="p-6">
-                <form className="container flex flex-col mx-auto space-y-8">
+                <form onSubmit={handleSubmit} className="container flex flex-col mx-auto space-y-8">
                     <fieldset className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm ">
                         <div className="space-y-2 col-span-full lg:col-span-1">
                             <p className="font-medium">Basic Inormation</p>
@@ -37,19 +47,19 @@ const CreateCar = () => {
                         <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                             <div className="col-span-full sm:col-span-3">
                                 <label htmlFor="name" className="text-sm">Car Full Name</label>
-                                <input id="name" type="text" placeholder="Name" className="p-2 w-full rounded-md  border-none bg-[#E78B401F] focus:outline-[#E78B40]" />
+                                <input required id="name" type="text" placeholder="Name" className="p-2 w-full rounded-md  border-none bg-[#E78B401F] focus:outline-[#E78B40]" />
                             </div>
                             <div className="col-span-full sm:col-span-3">
                                 <label htmlFor="color" className="text-sm">Car Color</label>
-                                <input id="color" type="text" placeholder="Color" className="p-2 w-full rounded-md  border-none bg-[#E78B401F] focus:outline-[#E78B40]" />
+                                <input required id="color" type="text" placeholder="Color" className="p-2 w-full rounded-md  border-none bg-[#E78B401F] focus:outline-[#E78B40]" />
                             </div>
                             <div className="col-span-full sm:col-span-3">
                                 <label htmlFor="pricePerHour" className="text-sm">Price Per Hour</label>
-                                <input id="pricePerHour" type="number" placeholder="Price" className="p-2 w-full rounded-md  border-none bg-[#E78B401F] focus:outline-[#E78B40]" />
+                                <input required id="pricePerHour" type="number" placeholder="Price" className="p-2 w-full rounded-md  border-none bg-[#E78B401F] focus:outline-[#E78B40]" />
                             </div>
                             <div className="col-span-full sm:col-span-3">
                                 <label htmlFor="description" className="text-sm">Price Per Hour</label>
-                                <textarea name="description" id="description" placeholder="Description" className="p-2 w-full rounded-md  border-none bg-[#E78B401F] focus:outline-[#E78B40]"></textarea>
+                                <textarea required name="description" id="description" placeholder="Description" className="p-2 w-full rounded-md  border-none bg-[#E78B401F] focus:outline-[#E78B40]"></textarea>
                             </div>
                         </div>
                     </fieldset>
@@ -82,17 +92,17 @@ const CreateCar = () => {
 
                             <div className="col-span-full sm:col-span-3">
                                 <label htmlFor="isElectric" className="text-sm">Electric</label>
-                                <select id="isElectric" name='isElectric' className="w-full px-4 py-3 rounded-md border-none bg-[#E78B401F] focus:outline-[#E78B40]">
+                                <select required id="isElectric" name='isElectric' className="w-full px-4 py-3 rounded-md border-none bg-[#E78B401F] focus:outline-[#E78B40]">
                                     <option value={-1}>Select</option>
-                                    <option value="true">Yes</option>
-                                    <option value="false">No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
                                 </select>
                             </div>
                             <div className="col-span-full sm:col-span-3">
-                                <label htmlFor="bio" className="text-sm">Photo</label>
+                                <label htmlFor="image" className="text-sm">Image</label>
                                 <div className="flex items-center space-x-2">
                                     <img src={uploadImage ? uploadImage : 'png.png'} alt="" className="w-10 h-10 dark:bg-gray-500 rounded-full" />
-                                    <input onChange={handleImageChange} type="file" className="w-full px-4 py-3 rounded-md border-none bg-[#E78B401F] focus:outline-[#E78B40] cursor-pointer" />
+                                    <input onChange={handleImageChange} required type="file" id='image' name='image' className="w-full px-4 py-3 rounded-md border-none bg-[#E78B401F] focus:outline-[#E78B40] cursor-pointer" />
                                 </div>
                             </div>
                         </div>

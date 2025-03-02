@@ -1,13 +1,16 @@
 import React from 'react';
 import useGetContext from '../../Hooks/UseContext/useGetContext';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 const PrivateAdminRoute = ({ children }) => {
-    const { user } = useGetContext();
-    if (user && user?.role === 'admin') {
+    const { user, userLoader } = useGetContext();
+    const location = useLocation();
+    const form = location.pathname || "/"
+
+    if (user && !userLoader && user?.role === 'admin') {
         return children;
     }
-    return <Navigate to="/" />;
+    return <Navigate to={form} />;
 };
 
 export default PrivateAdminRoute;

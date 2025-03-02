@@ -50,20 +50,20 @@ const ProfileDropdown = ({ size, darkMode }) => {
                     >
                         Profile
                     </Link>
-                    <Link
+                    {user && user?.role === "admin" && <><Link
                         to="/create-car"
                         className="hover:bg-[#FF6E00] hover:text-white p-2 rounded-md"
                         onClick={() => setOpen(false)}
                     >
                         Add Car
                     </Link>
-                    <Link
-                        to="/booked-car"
-                        className="hover:bg-[#FF6E00] hover:text-white p-2 rounded-md"
-                        onClick={() => setOpen(false)}
-                    >
-                        Booked Car
-                    </Link>
+                        <Link
+                            to="/booked-car"
+                            className="hover:bg-[#FF6E00] hover:text-white p-2 rounded-md"
+                            onClick={() => setOpen(false)}
+                        >
+                            Booked Car
+                        </Link></>}
                     <Link
                         className="hover:bg-[#FF6E00] hover:text-white p-2 rounded-md"
                         onClick={() => {
