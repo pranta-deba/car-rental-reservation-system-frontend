@@ -5,6 +5,10 @@ import Error from "../Pages/Error/Error";
 import SignIn from "../Pages/Auth/SignIn";
 import SignUp from "../Pages/Auth/SignUp";
 import PrivateUserRoute from "./Private/PrivateUserRoute";
+import PrivateAdminRoute from "./Private/PrivateAdminRoute";
+import CreateCar from "../Pages/CreateCar/CreateCar";
+import BookedCar from "../Pages/BookedCar/BookedCar";
+import Booking from "../Pages/Booking/Booking";
 
 export const router = createBrowserRouter([
     {
@@ -26,7 +30,15 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/booking",
-                element: <PrivateUserRoute>"booking"</PrivateUserRoute>,
+                element: <PrivateUserRoute><Booking /></PrivateUserRoute>,
+            },
+            {
+                path: "/create-car",
+                element: <PrivateAdminRoute><CreateCar /></PrivateAdminRoute>,
+            },
+            {
+                path: "/booked-car",
+                element: <PrivateAdminRoute><BookedCar /></PrivateAdminRoute>,
             },
         ],
     },
