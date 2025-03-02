@@ -1,23 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import toast from 'react-hot-toast';
 import { FcGoogle } from "react-icons/fc";
 import { IoMdHome } from "react-icons/io";
 import useGetContext from '../../Hooks/UseContext/useGetContext';
+import Loader from '../../Components/Loader/Loader';
 
 const SignIn = () => {
     const { googleSignIn } = useGetContext();
     const navigate = useNavigate();
+    const [signInLoader, setSignInLoader] = useState(false);
 
     const handleSubmit = async (e) => {
+        setSignInLoader(true)
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
         if (!email || !password) {
             toast.error('Please fill in all fields');
+            setSignInLoader(false)
             return;
         }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            toast.error('Please enter a valid email address');
+            setSignInLoader(false)
+            return;
+        }
+        if (password.length < 6) {
+            toast.error('Password must be at least 6 characters long');
+            setSignInLoader(false)
+            return;
+        }
+        const userData = { email, password }
+        console.log(userData)
+        setSignInLoader(false)
     };
 
 
@@ -58,7 +76,9 @@ const SignIn = () => {
                                     <a rel="noopener noreferrer">Forgot Password?</a>
                                 </div>
                             </div>
-                            <button type='submit' className="block w-full p-3 text-center rounded-sm bg-[#FF7C03] cursor-pointer hover:bg-[#FF7C03A3] uppercase">Sign in</button>
+                            <button disabled={signInLoader} type='submit' className="overflow-hidden block w-full p-3 text-center rounded-sm bg-[#FF7C03] cursor-pointer hover:bg-[#FF7C03A3] uppercase">
+                                {signInLoader ? <Loader size={"xl"} /> : "Sign in"}
+                            </button>
                         </form>
                         <div className="flex items-center pt-4 space-x-1 mb-3">
                             <div className="flex-1 h-px sm:w-16 dark:bg-gray-300"></div>
