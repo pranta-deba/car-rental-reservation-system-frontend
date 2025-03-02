@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useGetContext from '../../Hooks/UseContext/useGetContext';
+import { removeToken } from '../../Utils/token.config';
 
 const ProfileDropdown = ({ size, darkMode }) => {
     const [open, setOpen] = useState(false);
     const dropdownRef = useRef(null);
-    const { googleLogOut } = useGetContext();
+    const { LogOut, setUser } = useGetContext();
 
 
     useEffect(() => {
@@ -21,7 +22,9 @@ const ProfileDropdown = ({ size, darkMode }) => {
     }, []);
 
     const handleLogOut = async () => {
-        googleLogOut();
+        LogOut();
+        setUser(null);
+        removeToken();
     };
     return (
         <div

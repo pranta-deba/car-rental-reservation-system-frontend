@@ -4,11 +4,12 @@ import { createContext, useEffect, useState } from 'react';
 import { auth } from '../Services/firebase.config';
 import { getToken } from '../Utils/token.config';
 import AxiosInstanceWithToken from '../Config/AxiosInstanceWithToken';
+import AxiosInstance from '../Config/AxiosInstance';
 
 export const AppContext = createContext(null);
 const AppProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [userLoader, setUserLoader] = useState(null);
+    const [userLoader, setUserLoader] = useState(true);
     const [theme, setTheme] = useState('light');
 
     const googleProvider = new GoogleAuthProvider();
@@ -18,15 +19,25 @@ const AppProvider = ({ children }) => {
         const unSubscribed = onAuthStateChanged(auth, (currentUser) => {
             const token = getToken();
             if (currentUser) {
-                const { displayName, email, phoneNumber, photoURL, metadata } = currentUser;
-                setUser({
+                const { displayName, email, phoneNumber, photoURL } = currentUser;
+                AxiosInstance.post('/auth/google-signup', {
                     name: displayName,
                     email,
                     phone: phoneNumber,
-                    image: photoURL,
-                    metadata
-                });
-                setUserLoader(false);
+                    photo: photoURL,
+                    token
+                }).then((res) => {
+                    if (res?.data?.success) {
+                        setUser(res?.data?.data);
+                        setUserLoader(false);
+                    }
+                }).catch((err) => {
+                    if (!err?.response?.data?.success) {
+                        signOut(auth);
+                        setUser(null);
+                        setUserLoader(false);
+                    }
+                })
             } else if (token) {
                 AxiosInstanceWithToken.get('/auth/signin-with-token').then(res => {
                     if (res?.data?.success) {
@@ -51,7 +62,7 @@ const AppProvider = ({ children }) => {
     const googleSignIn = () => {
         return signInWithPopup(auth, googleProvider);
     }
-    const googleLogOut = () => {
+    const LogOut = () => {
         return signOut(auth);
     }
 
@@ -64,7 +75,7 @@ const AppProvider = ({ children }) => {
         theme,
         setTheme,
         googleSignIn,
-        googleLogOut,
+        LogOut,
         userLoader
     }
 
