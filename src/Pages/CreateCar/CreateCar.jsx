@@ -32,7 +32,7 @@ const CreateCar = () => {
                     <fieldset className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm ">
                         <div className="space-y-2 col-span-full lg:col-span-1">
                             <p className="font-medium">Basic Inormation</p>
-                            <p className="text-xs">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci fuga autem eum!</p>
+                            <p className="text-xs">Provide the essential details about the car, including its name, color, pricing, and description.</p>
                         </div>
                         <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                             <div className="col-span-full sm:col-span-3">
@@ -57,7 +57,7 @@ const CreateCar = () => {
                     <fieldset className="grid grid-cols-4 gap-6 px-6 py-4 rounded-md shadow-sm dark:bg-gray-50">
                         <div className="space-y-2 col-span-full lg:col-span-1">
                             <p className="font-medium">Other</p>
-                            <p className="text-xs">Adipisci fuga autem eum!</p>
+                            <p className="text-xs">Highlight additional information about the car, including special features and images.</p>
                         </div>
                         <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                             <div className="col-span-full relative">
@@ -97,6 +97,11 @@ const CreateCar = () => {
                             </div>
                         </div>
                     </fieldset>
+                    <div className='text-center'>
+                        <button type='submit' className="overflow-hidden p-3 text-center rounded-sm bg-[#FF7C03] cursor-pointer hover:bg-[#FF7C03A3] uppercase">
+                            Add Car
+                        </button>
+                    </div>
                 </form>
             </section>
         </div>

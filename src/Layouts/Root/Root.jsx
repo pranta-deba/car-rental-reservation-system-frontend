@@ -16,7 +16,7 @@ const Root = () => {
     return (
         <>
             <Navbar />
-            <main className='m-0 p-0'>
+            <main className='m-0 p-0 min-h-[calc(100vh-351.987px)]'>
                 <Outlet />
             </main>
             <Footer />
