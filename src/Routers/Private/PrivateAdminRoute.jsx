@@ -7,10 +7,10 @@ const PrivateAdminRoute = ({ children }) => {
     const location = useLocation();
     const form = location.pathname || "/"
 
-    if (user && !userLoader && user?.role === 'admin') {
-        return children;
+    if (!userLoader && !user?.role === 'admin') {
+        return <Navigate to={form} />;
     }
-    return <Navigate to={form} />;
+    return children;
 };
 
 export default PrivateAdminRoute;

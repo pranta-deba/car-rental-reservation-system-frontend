@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { IoCloseCircle } from "react-icons/io5";
 import uploadImageToImgBB from '../../Utils/uploadImage';
+import AxiosInstanceWithToken from '../../Config/AxiosInstanceWithToken';
 
 
 const CreateCar = () => {
@@ -47,8 +48,8 @@ const CreateCar = () => {
 
         try {
             // image upload
-            const imgURL = await uploadImageToImgBB(image);
-            if (!imgURL) {
+            const { imgURL, success } = await uploadImageToImgBB(image);
+            if (!success) {
                 toast.error('Failed to upload image');
                 return;
             }
@@ -58,15 +59,24 @@ const CreateCar = () => {
                 description,
                 color,
                 isElectric,
-                pricePerHour,
+                pricePerHour: Number(pricePerHour),
                 image: imgURL,
                 features
             };
 
-            console.log(car)
-
+            const { data } = await AxiosInstanceWithToken.post('/cars', car);
+            if (data.success) {
+                toast.success('Car created successfully');
+                setFeatures([]);
+                setUploadImage('');
+                e.target.reset();
+            }
         } catch (error) {
-            toast.error('An error occurred while creating the car!');
+            if (error?.response?.data?.message === "Invalid ID!") {
+                toast.error("This car is already in the list!");
+            } else {
+                toast.error(error?.response?.data?.message);
+            }
         }
 
 

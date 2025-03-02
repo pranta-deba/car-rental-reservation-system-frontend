@@ -9,6 +9,7 @@ import PrivateAdminRoute from "./Private/PrivateAdminRoute";
 import CreateCar from "../Pages/CreateCar/CreateCar";
 import BookedCar from "../Pages/BookedCar/BookedCar";
 import Booking from "../Pages/Booking/Booking";
+import LoggedRoute from "./Private/LoggedRoute";
 
 export const router = createBrowserRouter([
     {
@@ -34,7 +35,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/create-car",
-                element: <PrivateAdminRoute><CreateCar /></PrivateAdminRoute>,
+                element: <LoggedRoute>
+                    <PrivateAdminRoute>
+                        <CreateCar />
+                    </PrivateAdminRoute>
+                </LoggedRoute>,
             },
             {
                 path: "/booked-car",

@@ -13,12 +13,12 @@ const uploadImageToImgBB = async (file) => {
 
     const data = await response.json();
     if (data.success) {
-      return data.data.url;
+      return { imgURL: data.data.url, success: true };
     } else {
-      console.error("Upload failed:", data.error);
+      return { error: data.error, success: false };
     }
   } catch (error) {
-    console.error("Error uploading image:", error);
+    return { error: error, success: false };
   }
 };
 

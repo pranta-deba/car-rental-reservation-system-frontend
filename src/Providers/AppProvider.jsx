@@ -29,10 +29,10 @@ const AppProvider = ({ children }) => {
                 }).catch(err => {
                     if (!err?.response?.data?.success) {
                         toast.error('Something went wrong! please try again.')
-                        signOut(auth);
                         setUser(null);
                         removeToken();
                         setUserLoader(false);
+                        signOut(auth);
                     }
                 })
             } if (currentUser) {
@@ -51,10 +51,10 @@ const AppProvider = ({ children }) => {
                 }).catch((err) => {
                     if (!err?.response?.data?.success) {
                         toast.error('Something went wrong! please try again.')
-                        signOut(auth);
                         setUser(null);
                         removeToken();
                         setUserLoader(false);
+                        signOut(auth);
                     }
                 })
             } else {

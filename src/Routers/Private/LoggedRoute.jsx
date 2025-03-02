@@ -3,9 +3,11 @@ import { Navigate, useLocation } from 'react-router-dom';
 import useGetContext from '../../Hooks/UseContext/useGetContext';
 
 const LoggedRoute = ({ children }) => {
-    const { user } = useGetContext();
+    const { user, userLoader } = useGetContext();
     const location = useLocation();
-    if (!user) {
+
+
+    if (!user && userLoader) {
         return <Navigate to="/signIn" state={location.pathname} />;
     }
 
