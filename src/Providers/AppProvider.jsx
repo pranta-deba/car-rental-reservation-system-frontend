@@ -2,7 +2,7 @@
 import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import { auth } from '../Services/firebase.config';
-import { getToken } from '../Utils/token.config';
+import { getToken, setToken } from '../Utils/token.config';
 import AxiosInstanceWithToken from '../Config/AxiosInstanceWithToken';
 import AxiosInstance from '../Config/AxiosInstance';
 
@@ -18,33 +18,33 @@ const AppProvider = ({ children }) => {
         setUserLoader(true);
         const unSubscribed = onAuthStateChanged(auth, (currentUser) => {
             const token = getToken();
-            if (currentUser) {
-                const { displayName, email, phoneNumber, photoURL } = currentUser;
-                AxiosInstance.post('/auth/google-signup', {
-                    name: displayName,
-                    email,
-                    phone: phoneNumber,
-                    photo: photoURL,
-                    token
-                }).then((res) => {
-                    if (res?.data?.success) {
-                        setUser(res?.data?.data);
-                        setUserLoader(false);
-                    }
-                }).catch((err) => {
-                    if (!err?.response?.data?.success) {
-                        signOut(auth);
-                        setUser(null);
-                        setUserLoader(false);
-                    }
-                })
-            } else if (token) {
+            if (token) {
                 AxiosInstanceWithToken.get('/auth/signin-with-token').then(res => {
                     if (res?.data?.success) {
                         setUser(res?.data?.data);
                         setUserLoader(false);
                     }
                 }).catch(err => {
+                    if (!err?.response?.data?.success) {
+                        signOut(auth);
+                        setUser(null);
+                        setUserLoader(false);
+                    }
+                })
+            } if (currentUser) {
+                const { displayName, email, phoneNumber, photoURL } = currentUser;
+                AxiosInstance.post('/auth/google-signup', {
+                    name: displayName,
+                    email,
+                    phone: phoneNumber,
+                    photo: photoURL,
+                }).then((res) => {
+                    if (res?.data?.success) {
+                        setUser(res?.data?.data);
+                        setToken(res?.data?.token);
+                        setUserLoader(false);
+                    }
+                }).catch((err) => {
                     if (!err?.response?.data?.success) {
                         signOut(auth);
                         setUser(null);

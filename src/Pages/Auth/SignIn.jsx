@@ -61,8 +61,7 @@ const SignIn = () => {
 
     const handleGoogleLogin = async () => {
         googleSignIn()
-            .then((user) => {
-                console.log(user)
+            .then(() => {
                 navigate('/')
             }).catch((err) => {
                 console.log(err)
