@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 import { IoCloseCircle } from "react-icons/io5";
+import uploadImageToImgBB from '../../Utils/uploadImage';
 
 
 const CreateCar = () => {
@@ -24,15 +26,49 @@ const CreateCar = () => {
             setUploadImage(imageUrl);
         }
     }
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const name = e.target.name.value;
         const description = e.target.description.value;
         const color = e.target.color.value;
-        const isElectric = e.target.isElectric.value;
+        const electric = e.target.isElectric.value;
         const pricePerHour = e.target.pricePerHour.value;
-        const image = e.target.image;
-        console.log({ name, description, color, isElectric, pricePerHour, image });
+        const image = e.target.image.files[0];
+
+        if (!name || !description || !color || !pricePerHour || !image || !electric || features.length === 0) {
+            toast.error('Please fill in all required fields');
+            return;
+        }
+        const isElectric = electric === "yes" ? true : electric === "no" ? false : null
+        if (isElectric === null) {
+            toast.error('Please select a valid electric option');
+            return;
+        }
+
+        try {
+            // image upload
+            const imgURL = await uploadImageToImgBB(image);
+            if (!imgURL) {
+                toast.error('Failed to upload image');
+                return;
+            }
+
+            const car = {
+                name,
+                description,
+                color,
+                isElectric,
+                pricePerHour,
+                image: imgURL,
+                features
+            };
+
+            console.log(car)
+
+        } catch (error) {
+            toast.error('An error occurred while creating the car!');
+        }
+
 
     }
     return (
@@ -73,7 +109,7 @@ const CreateCar = () => {
                             <div className="col-span-full relative">
                                 <div className='flex flex-wrap gap-3'>
                                     {
-                                        features.length > -1 && features.map((feature, idx) => (
+                                        features.length > 0 && features.map((feature, idx) => (
                                             <div className='relative px-2 py-1 rounded-sm bg-amber-200' key={idx + 1}>
                                                 <span className='text-sm'>
                                                     {feature}
@@ -94,8 +130,8 @@ const CreateCar = () => {
                                 <label htmlFor="isElectric" className="text-sm">Electric</label>
                                 <select required id="isElectric" name='isElectric' className="w-full px-4 py-3 rounded-md border-none bg-[#E78B401F] focus:outline-[#E78B40]">
                                     <option value={-1}>Select</option>
-                                    <option value={true}>Yes</option>
-                                    <option value={false}>No</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
                                 </select>
                             </div>
                             <div className="col-span-full sm:col-span-3">
