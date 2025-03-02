@@ -2,9 +2,10 @@
 import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import { auth } from '../Services/firebase.config';
-import { getToken, setToken } from '../Utils/token.config';
+import { getToken, removeToken, setToken } from '../Utils/token.config';
 import AxiosInstanceWithToken from '../Config/AxiosInstanceWithToken';
 import AxiosInstance from '../Config/AxiosInstance';
+import toast from 'react-hot-toast';
 
 export const AppContext = createContext(null);
 const AppProvider = ({ children }) => {
@@ -27,8 +28,10 @@ const AppProvider = ({ children }) => {
                     }
                 }).catch(err => {
                     if (!err?.response?.data?.success) {
+                        toast.error('Something went wrong! please try again.')
                         signOut(auth);
                         setUser(null);
+                        removeToken();
                         setUserLoader(false);
                     }
                 })
@@ -47,8 +50,10 @@ const AppProvider = ({ children }) => {
                     }
                 }).catch((err) => {
                     if (!err?.response?.data?.success) {
+                        toast.error('Something went wrong! please try again.')
                         signOut(auth);
                         setUser(null);
+                        removeToken();
                         setUserLoader(false);
                     }
                 })
