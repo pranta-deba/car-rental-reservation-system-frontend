@@ -51,12 +51,11 @@ const SignUp = () => {
                 navigate('/signin', { replace: true })
             }
         } catch (error) {
-            console.log(error.response.data)
-            if (!error.success && error.response.data.message === 'Invalid ID!') {
+            if (!error?.success && error?.response?.data?.message === 'Invalid ID!') {
                 toast.error('Email already exists');
                 setSignUpLoader(false)
                 return;
-            } else if (!error.success && error.response.data.message === 'validation error!') {
+            } else if (!error?.success && error?.response?.data?.message === 'validation error!') {
                 toast.error('Invalid fields');
                 setSignUpLoader(false)
                 return;

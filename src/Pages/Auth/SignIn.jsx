@@ -6,9 +6,11 @@ import { FcGoogle } from "react-icons/fc";
 import { IoMdHome } from "react-icons/io";
 import useGetContext from '../../Hooks/UseContext/useGetContext';
 import Loader from '../../Components/Loader/Loader';
+import AxiosInstance from '../../Config/AxiosInstance';
+import { setToken } from '../../Utils/token.config';
 
 const SignIn = () => {
-    const { googleSignIn } = useGetContext();
+    const { googleSignIn, setUser } = useGetContext();
     const navigate = useNavigate();
     const [signInLoader, setSignInLoader] = useState(false);
 
@@ -34,8 +36,26 @@ const SignIn = () => {
             return;
         }
         const userData = { email, password }
-        console.log(userData)
-        setSignInLoader(false)
+
+        try {
+            const { data } = await AxiosInstance.post('/auth/signin', userData);
+            if (data?.success) {
+                setToken(data?.token);
+                setUser(data?.data);
+                toast.success('Logged in successfully!');
+                setSignInLoader(false)
+                navigate('/');
+            }
+        } catch (error) {
+            if (!error?.success) {
+                toast.error(error?.response?.data?.message || "Error signing!");
+                setSignInLoader(false)
+                return;
+            }
+            toast.error('Something went wrong!');
+            setSignInLoader(false)
+            return;
+        }
     };
 
 
