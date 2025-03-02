@@ -6,7 +6,7 @@ import { removeToken } from '../../Utils/token.config';
 const ProfileDropdown = ({ size, darkMode }) => {
     const [open, setOpen] = useState(false);
     const dropdownRef = useRef(null);
-    const { LogOut, setUser } = useGetContext();
+    const { LogOut, setUser, user } = useGetContext();
 
 
     useEffect(() => {
@@ -35,7 +35,7 @@ const ProfileDropdown = ({ size, darkMode }) => {
                 className="w-10 h-10 text-start relative primary-bg p-[1px] overflow-hidden rounded-full cursor-pointer"
                 onClick={() => setOpen(!open)}
             >
-                <img src="./user.png" alt="User" className="object-cover rounded-full" />
+                <img src={user && user.photo !== 'unknown photo' ? user?.photo : "./user.png"} alt="User" className="object-cover rounded-full" />
             </button>
 
             {open && (
