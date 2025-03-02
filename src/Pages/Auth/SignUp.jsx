@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import toast from 'react-hot-toast';
 import { FcGoogle } from "react-icons/fc";
@@ -7,11 +7,14 @@ import { IoMdHome } from "react-icons/io";
 import useGetContext from '../../Hooks/UseContext/useGetContext';
 import AxiosInstance from '../../Config/AxiosInstance';
 import Loader from '../../Components/Loader/Loader';
+import { setToken } from '../../Utils/token.config';
 
 const SignUp = () => {
-    const { googleSignIn } = useGetContext()
+    const { googleSignIn, setUser } = useGetContext()
     const navigate = useNavigate()
     const [signUpLoader, setSignUpLoader] = useState(false);
+    const location = useLocation();
+    const form = location.state || "/";
 
     const handleSubmit = async (e) => {
         setSignUpLoader(true)
@@ -45,10 +48,12 @@ const SignUp = () => {
         try {
             const { data } = await AxiosInstance.post('/auth/signup', userData);
             if (data.success) {
+                e.target.reset();
+                setToken(data?.token);
+                setUser(data?.data);
                 toast.success('User registered successfully');
                 setSignUpLoader(false)
-                e.target.reset();
-                navigate('/signin', { replace: true })
+                navigate(form, { replace: true })
             }
         } catch (error) {
             if (!error?.success && error?.response?.data?.message === 'Invalid ID!') {

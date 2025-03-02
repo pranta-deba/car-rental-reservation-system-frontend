@@ -33,6 +33,9 @@ const Navbar = () => {
         <li>
             <NavLink to="/contact" className="block py-2 px-4">Contact</NavLink>
         </li>
+        {user && user.role === 'user' && <li>
+            <NavLink to="/booking" className="block py-2 px-4">Booking</NavLink>
+        </li>}
         {!user && <> <li>
             <NavLink to="/signup" className="block py-2 px-4">Sign up</NavLink>
         </li>

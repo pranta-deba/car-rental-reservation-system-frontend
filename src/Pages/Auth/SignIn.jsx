@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import toast from 'react-hot-toast';
 import { FcGoogle } from "react-icons/fc";
@@ -13,6 +13,8 @@ const SignIn = () => {
     const { googleSignIn, setUser } = useGetContext();
     const navigate = useNavigate();
     const [signInLoader, setSignInLoader] = useState(false);
+    const location = useLocation();
+    const form = location.state || "/";
 
     const handleSubmit = async (e) => {
         setSignInLoader(true)
@@ -40,11 +42,12 @@ const SignIn = () => {
         try {
             const { data } = await AxiosInstance.post('/auth/signin', userData);
             if (data?.success) {
+                e.target.reset();
                 setToken(data?.token);
                 setUser(data?.data);
                 toast.success('Logged in successfully!');
                 setSignInLoader(false)
-                navigate('/');
+                navigate(form, { replace: true });
             }
         } catch (error) {
             if (!error?.success) {
@@ -62,7 +65,7 @@ const SignIn = () => {
     const handleGoogleLogin = async () => {
         googleSignIn()
             .then(() => {
-                navigate('/')
+                navigate(form)
             }).catch((err) => {
                 console.log(err)
             })
