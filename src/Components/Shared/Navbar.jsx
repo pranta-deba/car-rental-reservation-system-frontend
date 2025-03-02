@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { TiThMenuOutline } from "react-icons/ti";
 import { AiOutlineClose } from "react-icons/ai";
 import ProfileDropdown from '../Dropdown/ProfileDropdown';
@@ -12,6 +12,11 @@ const Navbar = () => {
         localStorage.getItem("theme") === "dark"
     );
     const { user } = useGetContext();
+    const location = useLocation()
+
+    useEffect(() => {
+        setIsOpen(false)
+    }, [location.pathname])
 
     useEffect(() => {
         if (darkMode) {

@@ -4,6 +4,7 @@ import Home from "../Pages/Home/Home";
 import Error from "../Pages/Error/Error";
 import SignIn from "../Pages/Auth/SignIn";
 import SignUp from "../Pages/Auth/SignUp";
+import PrivateUserRoute from "./Private/PrivateUserRoute";
 
 export const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
             {
                 path: "/contact",
                 element: "contact",
+            },
+            {
+                path: "/booking",
+                element: <PrivateUserRoute>"booking"</PrivateUserRoute>,
             },
         ],
     },

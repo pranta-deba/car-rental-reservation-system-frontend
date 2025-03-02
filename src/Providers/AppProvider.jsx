@@ -17,6 +17,7 @@ const AppProvider = ({ children }) => {
     useEffect(() => {
         setUserLoader(true);
         const unSubscribed = onAuthStateChanged(auth, (currentUser) => {
+            setUserLoader(true);
             const token = getToken();
             if (token) {
                 AxiosInstanceWithToken.get('/auth/signin-with-token').then(res => {
