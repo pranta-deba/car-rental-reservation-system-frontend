@@ -8,7 +8,9 @@ import Loader from '../../Components/Loader/Loader';
 const Root = () => {
     const { userLoader } = useGetContext();
 
-    if (userLoader) return <div className='flex justify-center items-center min-h-screen w-full'><Loader size={"4xl"} /></div>;
+    if (userLoader) return (<div className='overflow-hidden flex justify-center items-center min-h-screen w-full'>
+        <Loader size={"4xl"} />
+    </div>)
 
 
     return (
