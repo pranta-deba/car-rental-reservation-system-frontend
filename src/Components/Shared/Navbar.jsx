@@ -11,7 +11,7 @@ const Navbar = () => {
     const [darkMode, setDarkMode] = useState(
         localStorage.getItem("theme") === "dark"
     );
-    const { user } = useGetContext();
+    const { user, userLoader } = useGetContext();
     const location = useLocation()
 
     useEffect(() => {
@@ -41,12 +41,17 @@ const Navbar = () => {
         {user && user.role === 'user' && <li>
             <NavLink to="/booking" className="block py-2 px-4">Booking</NavLink>
         </li>}
-        {!user && <> <li>
-            <NavLink to="/signup" className="block py-2 px-4">Sign up</NavLink>
-        </li>
-            <li>
-                <NavLink to="/signin" className={`${darkMode ? "inline-block md:inline" : ""} block py-2 px-4 bg-[#FF6E00] text-white rounded-3xl hover:bg-[#FF6E00A3]`}>Sign in</NavLink>
-            </li></>}
+
+        {!userLoader && !user &&
+            <>
+                <li>
+                    <NavLink to="/signup" className="block py-2 px-4">Sign up</NavLink>
+                </li>
+                <li>
+                    <NavLink to="/signin" className={`${darkMode ? "inline-block md:inline" : ""} block py-2 px-4 bg-[#FF6E00] text-white rounded-3xl hover:bg-[#FF6E00A3]`}>Sign in</NavLink>
+                </li>
+            </>}
+
         <button
             onClick={() => setDarkMode(!darkMode)}
             title={darkMode ? "Light" : "Dark"}
