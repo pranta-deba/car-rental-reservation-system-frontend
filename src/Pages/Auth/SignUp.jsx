@@ -1,44 +1,74 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import toast from 'react-hot-toast';
 import { FcGoogle } from "react-icons/fc";
 import { IoMdHome } from "react-icons/io";
 import useGetContext from '../../Hooks/UseContext/useGetContext';
+import AxiosInstance from '../../Config/AxiosInstance';
+import Loader from '../../Components/Loader/Loader';
 
 const SignUp = () => {
     const { googleSignIn } = useGetContext()
     const navigate = useNavigate()
+    const [signUpLoader, setSignUpLoader] = useState(false);
 
     const handleSubmit = async (e) => {
+        setSignUpLoader(true)
         e.preventDefault();
         const name = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
         const phone = e.target.phone.value;
         const address = e.target.address.value;
-        console.log({ email, password, phone, address, name})
+
         if (!name || !email || !password || !phone || !address) {
             toast.error('Please fill in all fields');
+            setSignUpLoader(false)
             return;
         }
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             toast.error('Please enter a valid email address');
+            setSignUpLoader(false)
             return;
         }
         if (password.length < 6) {
             toast.error('Password must be at least 6 characters long');
+            setSignUpLoader(false)
             return;
         }
-    };
 
+        const userData = { email, password, phone, address, name }
+
+
+        try {
+            const { data } = await AxiosInstance.post('/auth/signup', userData);
+            if (data.success) {
+                toast.success('User registered successfully');
+                setSignUpLoader(false)
+                e.target.reset();
+                navigate('/signin', { replace: true })
+            }
+        } catch (error) {
+            console.log(error.response.data)
+            if (!error.success && error.response.data.message === 'Invalid ID!') {
+                toast.error('Email already exists');
+                setSignUpLoader(false)
+                return;
+            } else if (!error.success && error.response.data.message === 'validation error!') {
+                toast.error('Invalid fields');
+                setSignUpLoader(false)
+                return;
+            }
+        }
+    };
 
     const handleGoogleLogin = async () => {
         googleSignIn()
             .then((user) => {
                 console.log(user)
-                navigate('/')
+                navigate('/', { replace: true })
             }).catch((err) => {
                 console.log(err)
             })
@@ -87,7 +117,9 @@ const SignUp = () => {
                                 <label htmlFor="address" className="block dark:text-gray-600">Address</label>
                                 <input type="text" name="address" id="address" placeholder="Address" className="w-full px-4 py-3 rounded-md border-none bg-[#E78B401F] focus:outline-[#E78B40]" />
                             </div>
-                            <button type='submit' className="block w-full p-3 text-center rounded-sm bg-[#FF7C03] cursor-pointer hover:bg-[#FF7C03A3] uppercase">Sign up</button>
+                            <button disabled={signUpLoader} type='submit' className="overflow-hidden block w-full p-3 text-center rounded-sm bg-[#FF7C03] cursor-pointer hover:bg-[#FF7C03A3] uppercase">
+                                {signUpLoader ? <Loader size={"xl"} /> : "Sign up"}
+                            </button>
                         </form>
                         <div className="flex items-center pt-4 space-x-1 mb-3">
                             <div className="flex-1 h-px sm:w-16 dark:bg-gray-300"></div>

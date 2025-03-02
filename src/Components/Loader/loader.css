@@ -1,0 +1,25 @@
+.loader {
+    animation: carAnimation 1.5s infinite ease-in-out;
+}
+
+@keyframes carAnimation {
+    0% {
+        transform: translateX(-100px);
+    }
+
+    25% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(100px);
+    }
+
+    75% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100px);
+    }
+}
