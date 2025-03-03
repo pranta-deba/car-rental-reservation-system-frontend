@@ -18,15 +18,15 @@ const Model = () => {
                     <path d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z"></path>
                 </svg>
 
-                <div className="my-6 text-center">
+                <div className="my-6 text-center space-y-3">
+                    <img
+                        className="max-h-36 w-full object-cover rounded"
+                        src="https://i.ibb.co.com/Cs0PNmWK/EAS-0026-2048x2048.webp"
+                        alt="Car"
+                    />
                     {!user ? (
                         // If user does not exist
                         <div className='space-y-3'>
-                            <img
-                                className="max-h-36 w-full object-cover rounded"
-                                src="https://i.ibb.co.com/Cs0PNmWK/EAS-0026-2048x2048.webp"
-                                alt="Car"
-                            />
                             <h4 className="text-gray-800 text-lg font-semibold mt-4">
                                 Please sign in to book this car.
                             </h4>
@@ -37,22 +37,34 @@ const Model = () => {
                                 Sign in
                             </Link>
                         </div>
+                    ) : user.role === "admin" ? (
+                        <div className='space-y-3'>
+                            <h4 className="text-gray-800 text-lg font-semibold">
+                                Admins are not permitted to book this car!
+                            </h4>
+                        </div>
                     ) : (
-                        // If user exists
                         <div>
                             <h4 className="text-gray-800 text-lg font-semibold">
                                 Select Booking Details
                             </h4>
-                            <div className="mt-4 space-y-3">
+                            <form className="mt-4 space-y-3">
+                                {/* Date */}
                                 <input
                                     type="date"
+                                    name='date'
                                     className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#FF6E00]"
+                                    min={new Date().toISOString().split("T")[0]}
                                 />
+
+                                {/* Start Time */}
                                 <input
                                     type="time"
+                                    name='startTime'
                                     className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#FF6E00]"
+                                    step="3600"
                                 />
-                            </div>
+                            </form>
                             <button
                                 type="button"
                                 className="mt-6 px-4 py-2 rounded-lg text-white text-sm bg-[#FF6E00] hover:bg-[#e65c00] active:bg-[#d45500]"
