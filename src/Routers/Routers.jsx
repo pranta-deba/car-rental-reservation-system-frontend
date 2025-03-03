@@ -10,6 +10,7 @@ import CreateCar from "../Pages/CreateCar/CreateCar";
 import BookedCar from "../Pages/BookedCar/BookedCar";
 import Booking from "../Pages/Booking/Booking";
 import LoggedRoute from "./Private/LoggedRoute";
+import CarDetails from "../Pages/CarDetails/CarDetails";
 
 export const router = createBrowserRouter([
     {
@@ -28,6 +29,11 @@ export const router = createBrowserRouter([
             {
                 path: "/contact",
                 element: "contact",
+            },
+            {
+                path: "/car/:id",
+                loader: ({ params }) => fetch(`${import.meta.env.VITE_BASE_URL}/cars/${params.id}`),
+                element: <CarDetails />
             },
             {
                 path: "/booking",

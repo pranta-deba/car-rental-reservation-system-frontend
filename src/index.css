@@ -6,7 +6,6 @@ html {
     font-family: "Parkinsans", sans-serif;
 }
 
-/* Set the default theme */
 html.light {
     background-color: white;
     color: #001933;
@@ -14,7 +13,6 @@ html.light {
 
 html.dark {
     background-color: #001933;
-    /* Dark gray */
     color: white;
 }
 
