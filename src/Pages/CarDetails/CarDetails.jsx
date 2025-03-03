@@ -19,21 +19,21 @@ const CarDetails = () => {
                     <span className="ml-2 px-3 py-1 rounded-full">{car?.data?.color}</span>
                 </div>
                 <div className="mt-4">
-                    <span className="font-semibold ">Electric:</span> 
+                    <span className="font-semibold ">Electric:</span>
                     <span className={`ml-2 px-3 py-1 rounded-full text-white ${car?.data?.isElectric ? 'bg-green-500' : 'bg-red-500'}`}>
                         {car?.data?.isElectric ? 'Yes' : 'No'}
                     </span>
                 </div>
                 <div className="mt-4">
                     <span className="font-semibold ">Features:</span>
-                    <ul className="list-none mt-2 grid grid-cols-2 gap-2 ">
+                    <ul className="list-none mt-2 grid grid-cols-2 md:grid-cols-3 gap-2 ">
                         {car?.data?.features?.map((feature, index) => (
                             <li key={index} className="p-2 rounded-lg shadow-md text-center">{feature}</li>
                         ))}
                     </ul>
                 </div>
                 <div className="mt-6 flex justify-between items-center">
-                    <span className="text-2xl font-semibold ">${car?.data?.pricePerHour} / hour</span>
+                    <span className="text-2xl font-semibold"><span className='text-[#FF6E00]'>${car?.data?.pricePerHour}</span> <span className='text-sm'>/ hour</span></span>
                     <button className="bg-[#FF6E00] cursor-pointer  px-6 py-3 rounded-lg hover:bg-[#e66000] transition transform hover:scale-105 shadow-lg">Book Now</button>
                 </div>
             </div>

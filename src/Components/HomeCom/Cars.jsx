@@ -2,9 +2,11 @@ import React from 'react';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import Loader from '../Loader/Loader';
 import CarCard from '../Cards/CarCard';
+import { AiOutlineCar } from "react-icons/ai";
+
 
 const Cars = ({ cars, carsLoader, handleSort }) => {
-    
+
     return (
         <div className='container mx-auto'>
             <SectionHeader titleSplit={true} title='Feeatured Vehicles'>
@@ -23,6 +25,12 @@ const Cars = ({ cars, carsLoader, handleSort }) => {
                 <Loader size={'4xl'} />
             </div>}
 
+            {
+                !carsLoader && cars.length === 0 && <div className='w-full min-h-[300px] flex flex-col justify-center items-center text-gray-600'>
+                    <AiOutlineCar size={50} color="#FF6E00" />
+                    <p className='text-lg font-semibold text-[#FF6E00] mt-2'>No cars available to show</p>
+                </div>
+            }
 
 
             <div className='w-full p-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 justify-center items-center'>
