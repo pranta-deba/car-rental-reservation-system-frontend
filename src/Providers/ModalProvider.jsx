@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useState } from 'react';
 import toast from 'react-hot-toast';
+import AxiosInstanceWithToken from '../Config/AxiosInstanceWithToken';
 
 
 export const ModalContext = createContext(null);
@@ -10,7 +11,7 @@ const ModalProvider = ({ children }) => {
     const [bookingCar, setBookingCar] = useState('');
 
     // booking car by user
-    const handleBookingSubmit = (e) => {
+    const handleBookingSubmit = async (e) => {
         e.preventDefault();
         setBookingLoader(true);
         const today = new Date().toISOString().split("T")[0];
@@ -28,11 +29,32 @@ const ModalProvider = ({ children }) => {
             setBookingLoader(false);
             return;
         }
+        if (bookingCar?.status === 'unavailable') {
+            toast.error('This car already booked!. Please select another car.');
+            setBookingLoader(false);
+            return;
+        }
 
+        const bookingData = {
+            car: bookingCar._id,
+            date,
+            startTime
+        }
 
-        console.log({ date, today, startTime })
-        console.log(bookingCar)
-        setBookingLoader(false);
+        try {
+
+            const { data } = await AxiosInstanceWithToken.post("/bookings", bookingData);
+            if (data?.success) {
+                toast.success(data.message);
+                setBookingModal(false);
+                setBookingLoader(false);
+            }
+        } catch (error) {
+            if (!error?.response?.data?.success) {
+                toast.error('Something wrong!. Please try again later.');
+                setBookingLoader(false);
+            }
+        }
 
     }
 
