@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AxiosInstance from '../../Config/AxiosInstance';
 
-const useGetCars = (sort) => {
+const useGetCars = () => {
     const [cars, setCars] = useState([]);
     const [loader, setLoader] = useState(true);
     const [reload, setReload] = useState(true);
@@ -9,30 +9,22 @@ const useGetCars = (sort) => {
     const [url, setUrl] = useState('/cars');
 
     const refetch = (search = '', sort = '') => {
-        console.log({ search, sort })
         if (search) {
-            console.log(`/cars?searchTerm=${search}`)
+            setUrl(`/cars?searchTerm=${search}`);
+            setReload(!reload);
         } else if (sort) {
-            console.log(`/cars?sort=${sort}`)
+            setUrl(`/cars?sort=${sort}`);
+            setReload(!reload);
         } else {
-            console.log('/cars')
+            setUrl('/cars');
+            setReload(!reload);
         }
-        // if (search) {
-        //     setUrl(`/cars?searchTerm=${search}`);
-        //     setReload(!reload);
-        // } else if (sort) {
-        //     setUrl(`/cars?sort=${sort}`);
-        //     setReload(!reload);
-        // } else {
-        //     setUrl('/cars');
-        //     setReload(!reload);
-        // }
     }
-    console.log(sort)
+    console.log(url)
 
     useEffect(() => {
         setLoader(true);
-        AxiosInstance.get('/cars').then(res => {
+        AxiosInstance.get(url).then(res => {
             setCars(res.data.data);
             setLoader(false);
             setError(null);
@@ -40,7 +32,7 @@ const useGetCars = (sort) => {
             setError(err);
             setLoader(false);
         })
-    }, [reload])
+    }, [reload, url])
 
     return [cars, refetch, loader, error];
 };
