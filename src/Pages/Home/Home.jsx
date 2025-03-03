@@ -13,12 +13,20 @@ const Home = () => {
         }
         refetch("", e.target.value);
     }
+    const handleSearch = (e) => {
+        e.preventDefault();
+
+        if (!e.target.search.value) {
+            refetch();
+            return;
+        }
+        refetch(e.target.search.value, "");
+    }
 
 
     return (
         <div className='m-0 p-0'>
-            <Banner />
-            <button onClick={() => refetch("bmw", "price")}>click</button>
+            <Banner handleSearch={handleSearch} />
             <Cars cars={cars} carsLoader={loader} handleSort={handleSort} />
             <Features />
         </div>
