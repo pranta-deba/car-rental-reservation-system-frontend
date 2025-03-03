@@ -26,7 +26,7 @@ const Home = () => {
 
     return (
         <div className='m-0 p-0'>
-            {/* <Model /> */}
+            <Model />
             <Banner handleSearch={handleSearch} />
             <Cars cars={cars} carsLoader={loader} handleSort={handleSort} />
             <Features />

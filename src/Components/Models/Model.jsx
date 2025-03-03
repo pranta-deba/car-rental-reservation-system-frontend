@@ -1,5 +1,6 @@
 import React from 'react';
 import useGetContext from '../../Hooks/UseContext/useGetContext';
+import { Link } from 'react-router-dom';
 
 const Model = () => {
     const { user } = useGetContext();
@@ -20,20 +21,21 @@ const Model = () => {
                 <div className="my-6 text-center">
                     {!user ? (
                         // If user does not exist
-                        <div>
+                        <div className='space-y-3'>
                             <img
                                 className="max-h-36 w-full object-cover rounded"
                                 src="https://i.ibb.co.com/Cs0PNmWK/EAS-0026-2048x2048.webp"
                                 alt="Car"
                             />
                             <h4 className="text-gray-800 text-lg font-semibold mt-4">
-                                Please sign up to book a car.
+                                Please sign in to book this car.
                             </h4>
-                            <button
+                            <Link
+                                to={"/signin"}
                                 className="mt-4 px-4 py-2 rounded-lg text-white text-sm bg-[#FF6E00] hover:bg-[#e65c00] active:bg-[#d45500]"
                             >
-                                Sign Up
-                            </button>
+                                Sign in
+                            </Link>
                         </div>
                     ) : (
                         // If user exists

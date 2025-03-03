@@ -9,15 +9,15 @@ const Cars = ({ cars, carsLoader, handleSort }) => {
 
     return (
         <div className='container mx-auto'>
-            <SectionHeader titleSplit={true} title='Feeatured Vehicles'>
+            <SectionHeader titleSplit={true} title='Featured Vehicles'>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             </SectionHeader>
             <div className='flex justify-end px-4'>
                 {/* price sorting */}
-                <select onChange={handleSort} className="border-2 border-[#FF6E00] text-sm md:text-base p-1 md:p-2 rounded cursor-pointer">
-                    <option value="" className="">Sort by </option>
-                    <option value="name">Name</option>
-                    <option value="pricePerHour" >Price</option>
+                <select onChange={handleSort} className="border-2 border-[#FF6E00] text-sm md:text-base p-1 md:p-2 rounded cursor-pointer bg-transparent">
+                    <option value="" className="bg-yellow-200 text-black">Sort by </option>
+                    <option value="name" className='bg-yellow-200 text-black'>Name</option>
+                    <option value="pricePerHour" className='bg-yellow-200 text-black'>Price</option>
                 </select>
             </div>
 
