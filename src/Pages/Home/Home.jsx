@@ -7,13 +7,12 @@ import useGetCars from '../../Hooks/Fetched/useGetCars';
 const Home = () => {
     const [cars, , loader] = useGetCars();
 
-
-
+    
     return (
         <div className='m-0 p-0'>
             <Banner />
-            <Features />
             <Cars cars={cars} carsLoader={loader} />
+            <Features />
         </div>
     );
 };
