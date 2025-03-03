@@ -30,7 +30,8 @@ const ModalProvider = ({ children }) => {
         }
 
 
-        console.log({ date, today })
+        console.log({ date, today, startTime })
+        console.log(bookingCar)
         setBookingLoader(false);
 
     }

@@ -2,10 +2,18 @@ import useGetContext from '../../Hooks/UseContext/useGetContext';
 import { Link } from 'react-router-dom';
 import { TbLoader3 } from "react-icons/tb";
 import useGetModalContext from '../../Hooks/UseContext/useGetModalContext';
+import { useRef } from 'react';
 
 const Model = () => {
     const { user } = useGetContext();
     const { bookingLoader, bookingModal, setBookingModal, handleBookingSubmit, bookingCar } = useGetModalContext();
+    const dateRef = useRef()
+    const starTimeRef = useRef()
+
+    const handleCloseModal = () => {
+        dateRef.current.value = ''
+        setBookingModal(!bookingModal);
+    }
 
 
     return (
@@ -13,7 +21,7 @@ const Model = () => {
             <div className="w-full max-w-lg bg-white shadow-lg rounded-lg p-6 relative">
 
                 {/* Close Button */}
-                <button onClick={() => setBookingModal(!bookingModal)} className="w-4 cursor-pointer shrink-0 fill-gray-400 hover:fill-[#d45500] float-right">
+                <button onClick={() => handleCloseModal()} className="w-4 cursor-pointer shrink-0 fill-gray-400 hover:fill-[#d45500] float-right">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 320.591 320.591"
@@ -49,35 +57,44 @@ const Model = () => {
                             </h4>
                         </div>
                     ) : (
-                        <form onSubmit={handleBookingSubmit}>
+                        <form onSubmit={(e) => handleBookingSubmit(e)}>
                             <h4 className="text-gray-800 text-lg font-semibold">
                                 Select Booking Details
                             </h4>
                             <div className="mt-4 space-y-3">
                                 {/* Date */}
-                                <input
-                                    type="date"
-                                    name='date'
-                                    className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#FF6E00]"
-                                    min={new Date().toISOString().split("T")[0]}
-                                />
+                                <div>
+                                    <label htmlFor="date" className='block text-start'>Date: </label>
+                                    <input
+                                        type="date"
+                                        name='date'
+                                        id='date'
+                                        ref={dateRef}
+                                        className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#FF6E00]"
+                                        min={new Date().toISOString().split("T")[0]}
+                                    />
+                                </div>
 
                                 {/* Start Time */}
-                                <select name='startTime' className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#FF6E00]">
-                                    {Array.from({ length: 24 }, (_, i) => {
-                                        const hour24 = String(i).padStart(2, '0') + ":00";
-                                        const hour12 = i === 0 ? "12:00 AM"
-                                            : i < 12 ? `${i}:00 AM`
-                                                : i === 12 ? "12:00 PM"
-                                                    : `${i - 12}:00 PM`;
 
-                                        return (
-                                            <option key={i} value={hour24}>
-                                                {hour24} ({hour12})
-                                            </option>
-                                        );
-                                    })}
-                                </select>
+                                <div>
+                                    <label htmlFor="time" className='block text-start'>Time: </label>
+                                    <select ref={starTimeRef} id='time' name='startTime' className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#FF6E00]">
+                                        {Array.from({ length: 24 }, (_, i) => {
+                                            const hour24 = String(i).padStart(2, '0') + ":00";
+                                            const hour12 = i === 0 ? "12:00 AM"
+                                                : i < 12 ? `${i}:00 AM`
+                                                    : i === 12 ? "12:00 PM"
+                                                        : `${i - 12}:00 PM`;
+
+                                            return (
+                                                <option key={i} value={hour24}>
+                                                    {hour24} ({hour12})
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                </div>
                             </div>
                             <div className='flex justify-center'>
                                 <button
