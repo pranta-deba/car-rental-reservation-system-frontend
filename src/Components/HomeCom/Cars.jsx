@@ -16,9 +16,20 @@ const Cars = ({ cars, carsLoader }) => {
                 <Loader size={'4xl'} />
             </div>}
 
+            <div className='flex justify-end px-4'>
+                {/* price sorting */}
+                <select className="border-2 border-[#FF6E00] text-sm md:text-base p-1 md:p-2 rounded bg-white text-black focus:bg-[#FF6E00] focus:text-black appearance-none cursor-pointer">
+                    <option value="" className="bg-[#FF6E00] text-black">Sort by Price</option>
+                    <option value="asc" className="bg-[#FF6E00] text-black">Low to High</option>
+                    <option value="desc" className="bg-[#FF6E00] text-black">High to Low</option>
+                </select>
+
+
+            </div>
+
             <div className='w-full p-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 justify-center items-center'>
                 {!carsLoader && cars.length > 0 && cars.map((car, index) => (
-                    <CarCard key={index + 1} car={car}/>
+                    <CarCard key={index + 1} car={car} />
                 ))}
             </div>
 
