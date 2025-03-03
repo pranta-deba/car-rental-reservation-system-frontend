@@ -4,6 +4,7 @@ import Footer from '../../Components/Shared/Footer';
 import { Outlet } from 'react-router-dom';
 import useGetContext from '../../Hooks/UseContext/useGetContext';
 import Loader from '../../Components/Loader/Loader';
+import ModalProvider from '../../Providers/ModalProvider';
 
 const Root = () => {
     const { userLoader } = useGetContext();
@@ -17,7 +18,9 @@ const Root = () => {
         <>
             <Navbar />
             <main className='m-0 p-0 min-h-[calc(100vh-351.987px)]'>
-                <Outlet />
+                <ModalProvider>
+                    <Outlet />
+                </ModalProvider>
             </main>
             <Footer />
         </>
