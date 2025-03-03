@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const CarCard = ({ car }) => {
     const { name, pricePerHour, image, status, _id } = car || {};
     return (
-        <div className="max-w-xs rounded-md shadow-md dark:bg-gray-50 dark:text-gray-800">
+        <div className="max-w-xs rounded-md shadow-md dark:bg-gray-50 dark:text-gray-800 transform hover:scale-105 transition duration-300">
             <img src={image} alt="" className="object-cover object-center w-full rounded-t-md h-44 dark:bg-gray-500" />
             <div className="flex flex-col justify-between p-3 space-y-3">
                 <div className="space-y-2">

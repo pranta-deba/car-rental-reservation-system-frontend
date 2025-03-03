@@ -4,6 +4,7 @@ import { TiThMenuOutline } from "react-icons/ti";
 import { AiOutlineClose } from "react-icons/ai";
 import ProfileDropdown from '../Dropdown/ProfileDropdown';
 import useGetContext from '../../Hooks/UseContext/useGetContext';
+import logo from "../../assets/logo.png"
 
 
 const Navbar = () => {
@@ -69,7 +70,7 @@ const Navbar = () => {
                 <Link to="/" className="flex items-center text-2xl font-bold">
                     <span className='primary-text'>P</span>
                     <span>X</span>
-                    <span><img src="./logo.png" alt="logo.." className='w-6' /></span>
+                    <span><img src={logo} alt="logo.." className='w-6' /></span>
                     <span>R</span>
                     <span className='primary-text'>ent</span>
                 </Link>

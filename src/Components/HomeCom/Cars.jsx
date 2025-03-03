@@ -16,7 +16,7 @@ const Cars = ({ cars, carsLoader }) => {
                 <Loader size={'4xl'} />
             </div>}
 
-            <div className='w-full p-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 justify-center items-center'>
+            <div className='w-full p-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 justify-center items-center'>
                 {!carsLoader && cars.length > 0 && cars.map((car, index) => (
                     <CarCard key={index + 1} car={car}/>
                 ))}
