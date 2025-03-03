@@ -5,15 +5,11 @@ import useGetModalContext from '../../Hooks/UseContext/useGetModalContext';
 
 const Model = () => {
     const { user } = useGetContext();
-    const { bookingLoader, bookingModal, setBookingModal, handleBookingSubmit } = useGetModalContext();
-
-
-
-    console.log(bookingModal)
+    const { bookingLoader, bookingModal, setBookingModal, handleBookingSubmit, bookingCar } = useGetModalContext();
 
 
     return (
-        <div className="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
+        <div className={`${bookingModal ? "flex" : "hidden"} flex fixed inset-0 p-4  flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]`}>
             <div className="w-full max-w-lg bg-white shadow-lg rounded-lg p-6 relative">
 
                 {/* Close Button */}
@@ -29,8 +25,8 @@ const Model = () => {
 
                 <div className="my-6 text-center space-y-3">
                     <img
-                        className="max-h-36 w-full object-cover rounded"
-                        src="https://i.ibb.co.com/Cs0PNmWK/EAS-0026-2048x2048.webp"
+                        className="max-h-52 w-full object-cover rounded object-bottom"
+                        src={bookingCar?.image}
                         alt="Car"
                     />
                     {!user ? (

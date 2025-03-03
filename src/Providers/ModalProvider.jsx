@@ -7,6 +7,7 @@ export const ModalContext = createContext(null);
 const ModalProvider = ({ children }) => {
     const [bookingLoader, setBookingLoader] = useState(false);
     const [bookingModal, setBookingModal] = useState(false);
+    const [bookingCar, setBookingCar] = useState('');
 
     // booking car by user
     const handleBookingSubmit = (e) => {
@@ -36,7 +37,15 @@ const ModalProvider = ({ children }) => {
 
 
 
-    const value = { bookingLoader, setBookingLoader, bookingModal, setBookingModal, handleBookingSubmit }
+    const value = {
+        bookingLoader,
+        setBookingLoader,
+        bookingModal,
+        setBookingModal,
+        handleBookingSubmit,
+        bookingCar,
+        setBookingCar
+    }
     return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>
 };
 
