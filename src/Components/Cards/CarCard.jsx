@@ -18,7 +18,8 @@ const CarCard = ({ car }) => {
                 <div className="space-y-2">
                     <h2 className="overflow-hidden h-10  md:h-14 text-sm md:text-xl font-semibold tracking-wide text-start">{name}</h2>
                     <div className="flex justify-between items-center">
-                        <p className="text-[12px] md:text-base">{status}</p>
+                        {status === "unavailable" && <p className="text-[12px] md:text-base text-red-500">{status}</p>}
+                        {status === "available" && <p className="text-[12px] md:text-base">{status}</p>}
                         <p className="">
                             <span className="text-[12px] md:text-base font-semibold primary-text">${pricePerHour}</span>
                             <span className="text-[8px] md:text-[10px]">/hour</span>
