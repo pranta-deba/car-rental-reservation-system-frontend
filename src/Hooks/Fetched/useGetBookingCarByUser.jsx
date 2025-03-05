@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import AxiosInstance from '../../Config/AxiosInstance';
+import AxiosInstanceWithToken from '../../Config/AxiosInstanceWithToken';
 
 const useGetBookingCarByUser = () => {
     const [bookings, setBookings] = useState([]);
@@ -12,7 +12,7 @@ const useGetBookingCarByUser = () => {
     }
 
     useEffect(() => {
-        AxiosInstance.get('/bookings').then(res => {
+        AxiosInstanceWithToken.get('/bookings').then(res => {
             setBookings(res.data.data);
             setLoader(false);
             setError(null);
