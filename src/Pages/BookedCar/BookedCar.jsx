@@ -44,7 +44,7 @@ const BookedCar = () => {
                 </div>
             ) : (
                 <div className="overflow-x-auto">
-                    <table className="w-full bg-white shadow-md rounded-lg overflow-hidden text-sm md:text-base">
+                    <table className="w-full  shadow-md rounded-lg overflow-hidden text-sm md:text-base">
                         <thead className="bg-[#FF6E00] text-white">
                             <tr>
                                 <th className="p-3 text-left">Car</th>
@@ -58,7 +58,7 @@ const BookedCar = () => {
                         </thead>
                         <tbody>
                             {bookedCars.map((booking) => (
-                                <tr key={booking?._id} className="border-b hover:bg-gray-100">
+                                <tr key={booking?._id} className="border-b hover:bg-gray-300 hover:text-black transition-all">
                                     <td className="p-3 flex items-center">
                                         <img src={booking?.car.image} alt={booking?.car.name} className="w-16 h-16 object-cover rounded-lg mr-3" />
                                         <div>
