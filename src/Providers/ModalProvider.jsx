@@ -1,7 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, { createContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import AxiosInstanceWithToken from '../Config/AxiosInstanceWithToken';
+import { CarDataContext } from './CarDataProvider';
 
 
 export const ModalContext = createContext(null);
@@ -9,6 +10,7 @@ const ModalProvider = ({ children }) => {
     const [bookingLoader, setBookingLoader] = useState(false);
     const [bookingModal, setBookingModal] = useState(false);
     const [bookingCar, setBookingCar] = useState('');
+    const { refetch } = useContext(CarDataContext);
 
     // booking car by user
     const handleBookingSubmit = async (e) => {
@@ -45,6 +47,7 @@ const ModalProvider = ({ children }) => {
 
             const { data } = await AxiosInstanceWithToken.post("/bookings", bookingData);
             if (data?.success) {
+                refetch();
                 toast.success(data.message);
                 setBookingModal(false);
                 setBookingLoader(false);
