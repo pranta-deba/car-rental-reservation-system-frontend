@@ -4,13 +4,13 @@ import useGetCars from '../Hooks/Fetched/useGetCars';
 
 export const CarDataContext = createContext(null);
 const CarDataProvider = ({ children }) => {
-    const [cars, refetch, loader, error] = useGetCars();
+    const [cars, refetch, loader, carsMeta, error] = useGetCars();
 
     const handleSort = (e) => {
         if (!e.target.value) {
             return;
         }
-        refetch("", e.target.value);
+        refetch("", e.target.value, 1);
     }
     const handleSearch = (e) => {
         e.preventDefault();
@@ -18,11 +18,11 @@ const CarDataProvider = ({ children }) => {
             refetch();
             return;
         }
-        refetch(e.target.search.value, "");
+        refetch(e.target.search.value, "", 1);
     }
 
 
-    const value = { cars, refetch, loader, error, handleSort, handleSearch }
+    const value = { cars, refetch, loader, carsMeta, error, handleSort, handleSearch }
 
     return <CarDataContext.Provider value={value}>
         {

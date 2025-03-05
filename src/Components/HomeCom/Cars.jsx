@@ -1,4 +1,3 @@
-import React from 'react';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import Loader from '../Loader/Loader';
 import CarCard from '../Cards/CarCard';
@@ -35,12 +34,12 @@ const Cars = ({ cars, carsLoader, handleSort }) => {
 
 
             <div className='w-full p-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 justify-center items-center'>
-                {!carsLoader && cars.length > 0 && cars.map((car, index) => (
-                    <CarCard key={index + 1} car={car} />
+                {!carsLoader && cars.length > 0 && cars.map((car) => (
+                    <CarCard key={car._id} car={car} />
                 ))}
             </div>
 
-            <div className='text-center'>
+            <div className='text-center mt-4'>
                 <button className='bg-[#FF6E00] text-white px-4 py-2 rounded-sm'>
                     <Link to={"/cars"}>See All</Link>
                 </button>
