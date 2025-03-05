@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaExclamationTriangle } from 'react-icons/fa';
 import useGetBookedCarByAdmin from '../../Hooks/Fetched/useGetBookedCarByAdmin';
 import Loader from '../../Components/Loader/Loader';
+import AxiosInstanceWithToken from '../../Config/AxiosInstanceWithToken';
+import toast from 'react-hot-toast';
+import { TbLoader3 } from "react-icons/tb";
 
 const BookedCar = () => {
-    const [bookedCars, loader] = useGetBookedCarByAdmin();
+    const [bookedCars, loader, refetch] = useGetBookedCarByAdmin();
+    const [bookedLoader, setBookedLoader] = useState({ id: "", loader: false });
+
+    const handleReturnedCar = async (booking) => {
+        setBookedLoader({ id: booking._id, loader: true });
+        const bookingId = booking._id;
+        const endTime = `${new Date().getHours().toString().padStart(2, '0')}:${new Date().getMinutes().toString().padStart(2, '0')}`;
+        try {
+            const { data } = await AxiosInstanceWithToken.put('/bookings', { bookingId, endTime });
+            if (data?.success) {
+                refetch()
+                toast.success(data.message);
+                setBookedLoader({ id: booking.id, loader: false });
+            }
+        } catch (error) {
+            if (!error?.response?.data?.success) {
+                toast.error(error?.response?.data?.message || "Something went wrong!");
+                setBookedLoader({ id: booking.id, loader: false });
+            }
+        }
+    }
 
     return (
         <div className="container mx-auto p-4">
@@ -51,16 +74,20 @@ const BookedCar = () => {
                                     <td className="p-3">
                                         {booking?.startTime} - {booking?.endTime || 'Ongoing'}
                                     </td>
-                                    <td className="p-3">${booking?.totalCost}</td>
+                                    <td className="p-3">${booking?.totalCost ? Math.round(booking?.totalCost) : booking?.totalCost}</td>
                                     <td className="p-3">
-                                        <span className="px-2 py-1 text-sm font-medium text-white bg-red-500 rounded-lg">
+                                        {booking?.car.status === "unavailable" ? <span className="px-2 py-1 text-sm font-medium text-white bg-red-500 rounded-lg">
                                             {booking?.car.status}
-                                        </span>
+                                        </span> : <span className="px-2 py-1 text-sm font-medium text-white bg-green-500 rounded-lg">
+                                            {booking?.car.status}
+                                        </span>}
                                     </td>
                                     <td className="p-3 text-center">
-                                        <button className="bg-[#FF6E00] hover:bg-orange-700 text-white px-4 py-2 rounded-lg">
-                                            Return Car
-                                        </button>
+                                        {
+                                            booking.car.status === 'unavailable' ? <button disabled={bookedLoader.loader} onClick={() => handleReturnedCar(booking)} className="bg-[#FF6E00] hover:bg-orange-700 text-white px-4 py-2 rounded-lg cursor-pointer flex items-center">
+                                                {bookedLoader.loader && bookedLoader.id === booking._id ? <TbLoader3 className='animate-spin' /> : "Return Car"}
+                                            </button> : "Returned"
+                                        }
                                     </td>
                                 </tr>
                             ))}
