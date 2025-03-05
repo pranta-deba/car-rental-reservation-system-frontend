@@ -1,10 +1,34 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { FaExclamationTriangle } from 'react-icons/fa';
 import useGetBookingCarByUser from '../../Hooks/Fetched/useGetBookingCarByUser';
 import Loader from '../../Components/Loader/Loader';
+import { TbLoader3 } from 'react-icons/tb';
+import AxiosInstanceWithToken from '../../Config/AxiosInstanceWithToken';
+import toast from 'react-hot-toast';
+import { CarDataContext } from '../../Providers/CarDataProvider';
 
 const Booking = () => {
-    const [bookings, loader] = useGetBookingCarByUser();
+    const [bookings, loader, refetch] = useGetBookingCarByUser();
+    const [cancelBookedLoader, setCancelBookedLoader] = useState({ id: "", loader: false });
+    const { refetch: carDataRefetch } = useContext(CarDataContext);
+
+    const handleCancelBooking = async (booking) => {
+        setCancelBookedLoader({ id: booking._id, loader: true });
+        try {
+            const { data } = await AxiosInstanceWithToken.delete(`/bookings/cancel/${booking._id}`);
+            if (data?.success) {
+                refetch();
+                carDataRefetch();
+                toast.success(data.message);
+                setCancelBookedLoader({ id: booking.id, loader: false });
+            }
+        } catch (error) {
+            if (!error?.response?.data?.success) {
+                toast.error(error?.response?.data?.message || "Something went wrong!");
+                setCancelBookedLoader({ id: booking.id, loader: false });
+            }
+        }
+    }
 
     return (
         <div className="container mx-auto mt-3 p-4">
@@ -26,8 +50,10 @@ const Booking = () => {
                             <p className="text-gray-600 mb-2">{new Date(booking.date).toLocaleDateString()} || {booking.startTime} - {booking.endTime || 'Ongoing'}</p>
                             <p className="text-gray-600 mb-2">Total Cost: ${booking.totalCost}</p>
                             <p className="text-gray-600 mb-2">Address: {booking.user.address}</p>
-                            <img src={booking.car.image} alt={booking.car.name} className="rounded-lg mt-2 h-56 w-full object-cover object-center" style={{ maxWidth: '100%' }} />
-                            <button className="mt-4 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg focus:outline-none cursor-pointer">Cancel</button>
+                            <img src={booking.car.image} alt={booking.car.name} className="rounded-lg mt-2 h-52 w-full object-cover object-center" style={{ maxWidth: '100%' }} />
+                            <button onClick={() => handleCancelBooking(booking)} className="mt-4 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg focus:outline-none cursor-pointer">
+                                {cancelBookedLoader.loader && cancelBookedLoader.id === booking._id ? <TbLoader3 className='animate-spin' /> : "Cancel"}
+                            </button>
                         </div>
                     ))}
                 </div>
