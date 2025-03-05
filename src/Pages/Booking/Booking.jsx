@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaExclamationTriangle } from 'react-icons/fa';
 import useGetBookingCarByUser from '../../Hooks/Fetched/useGetBookingCarByUser';
 import Loader from '../../Components/Loader/Loader';
 
@@ -11,6 +12,11 @@ const Booking = () => {
             {loader ? (
                 <div className='min-h-[300px] w-full flex justify-center items-center'>
                     <Loader size={'4xl'} />
+                </div>
+            ) : bookings.length === 0 ? (
+                <div className="flex flex-col items-center justify-center min-h-[200px] text-gray-600">
+                    <FaExclamationTriangle className="text-4xl mb-2" />
+                    <p className="text-lg">No bookings found.</p>
                 </div>
             ) : (
                 <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">

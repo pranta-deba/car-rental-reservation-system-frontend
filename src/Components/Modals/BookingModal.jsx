@@ -4,7 +4,7 @@ import { TbLoader3 } from "react-icons/tb";
 import useGetModalContext from '../../Hooks/UseContext/useGetModalContext';
 import { useRef } from 'react';
 
-const Model = () => {
+const BookingModal = () => {
     const { user } = useGetContext();
     const { bookingLoader, bookingModal, setBookingModal, handleBookingSubmit, bookingCar } = useGetModalContext();
     const dateRef = useRef()
@@ -114,4 +114,4 @@ const Model = () => {
     );
 };
 
-export default Model;
+export default BookingModal;
