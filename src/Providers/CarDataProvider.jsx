@@ -23,7 +23,6 @@ const CarDataProvider = ({ children }) => {
 
 
     const value = { cars, refetch, loader, error, handleSort, handleSearch }
-    console.log(value)
 
     return <CarDataContext.Provider value={value}>
         {

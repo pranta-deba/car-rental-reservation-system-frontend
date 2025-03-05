@@ -5,6 +5,7 @@ import { Outlet } from 'react-router-dom';
 import useGetContext from '../../Hooks/UseContext/useGetContext';
 import Loader from '../../Components/Loader/Loader';
 import ModalProvider from '../../Providers/ModalProvider';
+import CarDataProvider from '../../Providers/CarDataProvider';
 
 const Root = () => {
     const { userLoader } = useGetContext();
@@ -18,9 +19,11 @@ const Root = () => {
         <>
             <Navbar />
             <main className='m-0 p-0 min-h-[calc(100vh-351.987px)]'>
-                <ModalProvider>
-                    <Outlet />
-                </ModalProvider>
+                <CarDataProvider>
+                    <ModalProvider>
+                        <Outlet />
+                    </ModalProvider>
+                </CarDataProvider>
             </main>
             <Footer />
         </>
