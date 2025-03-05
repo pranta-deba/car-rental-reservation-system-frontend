@@ -5,15 +5,15 @@ const CarDetails = () => {
     const car = useLoaderData();
 
     return (
-        <div className="container mx-auto  flex items-center justify-center p-6">
+        <div className="container mx-auto  flex items-center justify-center md:p-6">
             <div className="shadow-xl rounded-xl p-6 w-full ">
                 <img
                     src={car?.data?.image}
                     alt={car?.data?.name}
                     className="w-full h-96 object-cover rounded-xl shadow-lg"
                 />
-                <h2 className="text-4xl font-extrabold  mt-4">{car?.data?.name}</h2>
-                <p className=" mt-2 text-lg">{car?.data?.description}</p>
+                <h2 className="text-2xl md:text-4xl font-extrabold  mt-4">{car?.data?.name}</h2>
+                <p className=" mt-2 md:text-lg">{car?.data?.description}</p>
                 <div className="mt-4">
                     <span className="font-semibold ">Color:</span>
                     <span className="ml-2 px-3 py-1 rounded-full">{car?.data?.color}</span>
@@ -34,7 +34,8 @@ const CarDetails = () => {
                 </div>
                 <div className="mt-6 flex justify-between items-center">
                     <span className="text-2xl font-semibold"><span className='text-[#FF6E00]'>${car?.data?.pricePerHour}</span> <span className='text-sm'>/ hour</span></span>
-                    <button className="bg-[#FF6E00] cursor-pointer  px-6 py-3 rounded-lg hover:bg-[#e66000] transition transform hover:scale-105 shadow-lg">Book Now</button>
+
+                    {car?.data?.status === 'unavailable' ? <span className="text-sm text-gray-500">Booked</span> : <button className="bg-[#FF6E00] cursor-pointer  px-6 py-3 rounded-lg hover:bg-[#e66000] transition transform hover:scale-105 shadow-lg">Book Now</button>}
                 </div>
             </div>
         </div>

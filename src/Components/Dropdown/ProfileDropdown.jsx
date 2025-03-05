@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useGetContext from '../../Hooks/UseContext/useGetContext';
 import { removeToken } from '../../Utils/token.config';
+import userPng from "../../assets/user.png"
 
 const ProfileDropdown = ({ size, darkMode }) => {
     const [open, setOpen] = useState(false);
@@ -36,7 +37,7 @@ const ProfileDropdown = ({ size, darkMode }) => {
                 onClick={() => setOpen(!open)}
             >
                 <img src={
-                    user && user.photo !== 'unknown photo' && user?.photo !== '' ? user?.photo : './user.png'} alt="User" className="object-cover rounded-full" />
+                    user && user.photo !== 'unknown photo' && user?.photo !== '' ? user?.photo : userPng} alt="User" className="object-cover rounded-full" />
             </button>
 
             {open && (
