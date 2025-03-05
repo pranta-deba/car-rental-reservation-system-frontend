@@ -11,6 +11,7 @@ import BookedCar from "../Pages/BookedCar/BookedCar";
 import Booking from "../Pages/Booking/Booking";
 import LoggedRoute from "./Private/LoggedRoute";
 import CarDetails from "../Pages/CarDetails/CarDetails";
+import AllCars from "../Pages/Cars/AllCars";
 
 export const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
             {
                 path: "/contact",
                 element: "contact",
+            },
+            {
+                path: "/cars",
+                element: <AllCars />,
             },
             {
                 path: "/car/:id",

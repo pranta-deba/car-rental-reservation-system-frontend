@@ -3,6 +3,7 @@ import SectionHeader from '../SectionHeader/SectionHeader';
 import Loader from '../Loader/Loader';
 import CarCard from '../Cards/CarCard';
 import { AiOutlineCar } from "react-icons/ai";
+import { Link } from 'react-router-dom';
 
 
 const Cars = ({ cars, carsLoader, handleSort }) => {
@@ -37,6 +38,12 @@ const Cars = ({ cars, carsLoader, handleSort }) => {
                 {!carsLoader && cars.length > 0 && cars.map((car, index) => (
                     <CarCard key={index + 1} car={car} />
                 ))}
+            </div>
+
+            <div className='text-center'>
+                <button className='bg-[#FF6E00] text-white px-4 py-2 rounded-sm'>
+                    <Link to={"/cars"}>See All</Link>
+                </button>
             </div>
 
         </div>
