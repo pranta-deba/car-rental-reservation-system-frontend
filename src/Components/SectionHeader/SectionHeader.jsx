@@ -1,7 +1,7 @@
 
 const SectionHeader = ({ title = 'Title', children = 'Sub Title', titleSplit = false }) => {
     return (
-        <div className="container mx-auto text-center my-4 md:my-6 lg:my-10 space-y-3">
+        <div className="container mx-auto text-center my-4 md:my-6 lg:my-10 space-y-3 px-3">
             <h1 className="text-4xl md:text-5xl font-bold drop-shadow">{
                 titleSplit ?
                     <>
