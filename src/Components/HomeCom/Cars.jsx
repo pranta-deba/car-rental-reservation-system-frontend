@@ -10,7 +10,7 @@ const Cars = ({ cars, carsLoader, handleSort }) => {
     return (
         <div className='container mx-auto'>
             <SectionHeader titleSplit={true} title='Featured Vehicles'>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Exploring Innovation: Cutting-Edge Vehicles of Tomorrow
             </SectionHeader>
             <div className='flex justify-end px-4'>
                 {/* price sorting */}
