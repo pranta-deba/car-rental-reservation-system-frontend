@@ -4,6 +4,7 @@ import Features from '../../Components/HomeCom/Features';
 import Cars from '../../Components/HomeCom/Cars';
 import { CarDataContext } from '../../Providers/CarDataProvider';
 import BookingModal from '../../Components/Modals/BookingModal';
+import Stat from '../../Components/HomeCom/Stat';
 
 const Home = () => {
     const { cars, loader, handleSearch, handleSort } = useContext(CarDataContext);
@@ -14,6 +15,7 @@ const Home = () => {
             <Banner handleSearch={handleSearch} />
             <Cars cars={cars} carsLoader={loader} handleSort={handleSort} />
             <Features />
+            <Stat />
         </div>
     );
 };
