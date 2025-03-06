@@ -6,6 +6,7 @@ import { TbLoader3 } from 'react-icons/tb';
 import AxiosInstanceWithToken from '../../Config/AxiosInstanceWithToken';
 import toast from 'react-hot-toast';
 import { CarDataContext } from '../../Providers/CarDataProvider';
+import Swal from 'sweetalert2';
 
 const Booking = () => {
     const [bookings, loader, refetch] = useGetBookingCarByUser();
@@ -14,20 +15,34 @@ const Booking = () => {
 
     const handleCancelBooking = async (booking) => {
         setCancelBookedLoader({ id: booking._id, loader: true });
-        try {
-            const { data } = await AxiosInstanceWithToken.delete(`/bookings/cancel/${booking._id}`);
-            if (data?.success) {
-                refetch();
-                carDataRefetch();
-                toast.success(data.message);
+        Swal.fire({
+            title: "Are you sure?",
+            text: `You won't be able to revert this booking!`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#FF6E00",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const { data } = await AxiosInstanceWithToken.delete(`/bookings/cancel/${booking._id}`);
+                    if (data?.success) {
+                        refetch();
+                        carDataRefetch();
+                        toast.success(data.message);
+                        setCancelBookedLoader({ id: booking.id, loader: false });
+                    }
+                } catch (error) {
+                    if (!error?.response?.data?.success) {
+                        toast.error(error?.response?.data?.message || "Something went wrong!");
+                        setCancelBookedLoader({ id: booking.id, loader: false });
+                    }
+                }
+            } else {
                 setCancelBookedLoader({ id: booking.id, loader: false });
             }
-        } catch (error) {
-            if (!error?.response?.data?.success) {
-                toast.error(error?.response?.data?.message || "Something went wrong!");
-                setCancelBookedLoader({ id: booking.id, loader: false });
-            }
-        }
+        });
     }
 
     return (

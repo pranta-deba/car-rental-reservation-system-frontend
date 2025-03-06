@@ -7,7 +7,6 @@ import BookingModal from '../../Components/Modals/BookingModal';
 const AllCars = () => {
     const { cars, loader: carsLoader, carsMeta, refetch, handleSearch, handleSort } = useContext(CarDataContext);
     const { page, totalPage } = carsMeta;
-    console.log(carsMeta)
 
     const handlePageChange = (newPage) => {
         if (newPage >= 1 && newPage <= totalPage) {
