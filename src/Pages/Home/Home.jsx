@@ -17,7 +17,7 @@ const Home = () => {
             <Cars cars={cars} carsLoader={loader} handleSort={handleSort} />
             <Features />
             <Stat />
-            <Categories />
+            <Categories cars={cars} carsLoader={loader}/>
         </div>
     );
 };
