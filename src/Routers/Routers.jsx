@@ -14,6 +14,7 @@ import CarDetails from "../Pages/CarDetails/CarDetails";
 import AllCars from "../Pages/Cars/AllCars";
 import About from "../Pages/About/About";
 import Contact from "../Pages/Contact/Contact";
+import Profile from "../Pages/Profile/Profile";
 
 export const router = createBrowserRouter([
     {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
             {
                 path: "/contact",
                 element: <Contact />,
+            },
+            {
+                path: "/profile",
+                element: <LoggedRoute><Profile /></LoggedRoute>,
             },
             {
                 path: "/cars",
