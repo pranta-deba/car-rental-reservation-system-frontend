@@ -4,11 +4,13 @@ import useGetCars from '../Hooks/Fetched/useGetCars';
 import Swal from 'sweetalert2';
 import AxiosInstanceWithToken from '../Config/AxiosInstanceWithToken';
 import toast from 'react-hot-toast';
+import useGetContext from '../Hooks/UseContext/useGetContext';
 
 export const CarDataContext = createContext(null);
 const CarDataProvider = ({ children }) => {
     const [cars, refetch, loader, carsMeta, error] = useGetCars();
     const [deleteLoader, setDeleteLoader] = useState(false);
+    const { user } = useGetContext();
 
     const handleSort = (e) => {
         if (!e.target.value) {
@@ -26,7 +28,19 @@ const CarDataProvider = ({ children }) => {
     }
 
     const handleDeleteCar = async (id) => {
-        setDeleteLoader(true)
+        setDeleteLoader(true);
+
+        if (!user) {
+            toast.error('You must be logged in to delete a car');
+            setDeleteLoader(false)
+            return;
+        }
+        if (!user.role === 'admin') {
+            toast.error('Only admins can delete cars');
+            setDeleteLoader(false)
+            return;
+        }
+
         Swal.fire({
             title: "Are you sure?",
             text: `You won't be able to revert this car!`,
@@ -40,6 +54,7 @@ const CarDataProvider = ({ children }) => {
                 try {
                     const { data } = await AxiosInstanceWithToken.delete(`/cars/${id}`);
                     if (data.success) {
+                        refetch("", "", 0);
                         toast.success(data?.message || 'Car deleted successfully');
                         setDeleteLoader(false)
                     }

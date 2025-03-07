@@ -52,7 +52,7 @@ const AllCars = () => {
 
             <div className='w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 justify-center items-center'>
                 {!carsLoader && cars.length > 0 && cars.map((car) => (
-                    <CarCard key={car._id} car={car} />
+                    car.isDeleted && <CarCard key={car._id} car={car} />
                 ))}
             </div>
 

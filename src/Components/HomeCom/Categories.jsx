@@ -50,7 +50,7 @@ const Categories = ({ cars, carsLoader }) => {
                         style={{ paddingBottom: "20px" }}
                     >
                         {cars.map((item) => (
-                            item.status === "available" && <SwiperSlide key={item._id}>
+                            item.status === "available" && !item.isDeleted && <SwiperSlide key={item._id}>
                                 <div className="rounded-lg shadow-md hover:shadow-2xl p-4 space-y-2 transition-all">
                                     <figure className='h-36 w-full overflow-hidden'>
                                         <Link to={`/car/${item._id}`}>

@@ -10,7 +10,7 @@ const Cars = ({ cars, carsLoader, handleSort }) => {
     return (
         <div className='container mx-auto'>
             <SectionHeader titleSplit={true} title='Featured Vehicles'>
-            Exploring Innovation: Cutting-Edge Vehicles of Tomorrow
+                Exploring Innovation: Cutting-Edge Vehicles of Tomorrow
             </SectionHeader>
             <div className='flex justify-end px-4'>
                 {/* price sorting */}
@@ -35,7 +35,7 @@ const Cars = ({ cars, carsLoader, handleSort }) => {
 
             <div className='w-full p-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 justify-center items-center'>
                 {!carsLoader && cars.length > 0 && cars.map((car) => (
-                    <CarCard key={car._id} car={car} />
+                   !car.isDeleted && <CarCard key={car._id} car={car} />
                 ))}
             </div>
 
