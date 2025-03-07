@@ -1,0 +1,27 @@
+.slick-slider {
+    position: relative;
+    width: 100%;
+    margin: auto;
+}
+
+.slick-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.slick-prev,
+.slick-next {
+    color: black !important;
+    z-index: 1000;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    font-size: 24px;
+    color: black;
+}
