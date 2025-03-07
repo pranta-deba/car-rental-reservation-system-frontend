@@ -3,12 +3,14 @@ import toast from 'react-hot-toast';
 import { IoCloseCircle } from "react-icons/io5";
 import uploadImageToImgBB from '../../Utils/uploadImage';
 import AxiosInstanceWithToken from '../../Config/AxiosInstanceWithToken';
+import { TbLoader3 } from 'react-icons/tb';
 
 
 const CreateCar = () => {
     const [features, setFeatures] = useState([]);
     const featureRef = useRef();
     const [uploadImage, setUploadImage] = useState('');
+    const [createLoader, setCreateLoader] = useState(false);
 
     const handleDeleteFeatures = (idx) => {
         setFeatures(features.filter((_, i) => i !== idx));
@@ -28,6 +30,7 @@ const CreateCar = () => {
         }
     }
     const handleSubmit = async (e) => {
+        setCreateLoader(true);
         e.preventDefault();
         const name = e.target.name.value;
         const description = e.target.description.value;
@@ -38,11 +41,13 @@ const CreateCar = () => {
 
         if (!name || !description || !color || !pricePerHour || !image || !electric || features.length === 0) {
             toast.error('Please fill in all required fields');
+            setCreateLoader(false);
             return;
         }
         const isElectric = electric === "yes" ? true : electric === "no" ? false : null
         if (isElectric === null) {
             toast.error('Please select a valid electric option');
+            setCreateLoader(false);
             return;
         }
 
@@ -51,6 +56,7 @@ const CreateCar = () => {
             const { imgURL, success } = await uploadImageToImgBB(image);
             if (!success) {
                 toast.error('Failed to upload image');
+                setCreateLoader(false);
                 return;
             }
 
@@ -70,12 +76,15 @@ const CreateCar = () => {
                 setFeatures([]);
                 setUploadImage('');
                 e.target.reset();
+                setCreateLoader(false);
             }
         } catch (error) {
             if (error?.response?.data?.message === "Invalid ID!") {
                 toast.error("This car is already in the list!");
+                setCreateLoader(false);
             } else {
                 toast.error(error?.response?.data?.message);
+                setCreateLoader(false);
             }
         }
 
@@ -154,8 +163,10 @@ const CreateCar = () => {
                         </div>
                     </fieldset>
                     <div className='text-center'>
-                        <button type='submit' className="overflow-hidden p-3 text-center rounded-sm bg-[#FF7C03] cursor-pointer hover:bg-[#FF7C03A3] uppercase">
-                            Add Car
+                        <button disabled={createLoader} type='submit' className="overflow-hidden p-3 text-center rounded-sm bg-[#FF7C03] cursor-pointer hover:bg-[#FF7C03A3] uppercase">
+                            <span className='flex items-center justify-center gap-2'>
+                                Add Car {createLoader && <TbLoader3 className='animate-spin' />}
+                            </span>
                         </button>
                     </div>
                 </form>
