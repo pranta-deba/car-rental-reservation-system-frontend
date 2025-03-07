@@ -9,8 +9,9 @@ export const ModalContext = createContext(null);
 const ModalProvider = ({ children }) => {
     const [bookingLoader, setBookingLoader] = useState(false);
     const [bookingModal, setBookingModal] = useState(false);
-    const [bookingCar, setBookingCar] = useState('');
+    const [bookingCar, setBookingCar] = useState({});
     const { refetch } = useContext(CarDataContext);
+    
 
     // booking car by user
     const handleBookingSubmit = async (e) => {
