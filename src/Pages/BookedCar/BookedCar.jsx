@@ -5,6 +5,7 @@ import Loader from '../../Components/Loader/Loader';
 import AxiosInstanceWithToken from '../../Config/AxiosInstanceWithToken';
 import toast from 'react-hot-toast';
 import { TbLoader3 } from "react-icons/tb";
+import Swal from 'sweetalert2';
 
 const BookedCar = () => {
     const [bookedCars, loader, refetch] = useGetBookedCarByAdmin();
@@ -12,21 +13,37 @@ const BookedCar = () => {
 
     const handleReturnedCar = async (booking) => {
         setBookedLoader({ id: booking._id, loader: true });
-        const bookingId = booking._id;
-        const endTime = `${new Date().getHours().toString().padStart(2, '0')}:${new Date().getMinutes().toString().padStart(2, '0')}`;
-        try {
-            const { data } = await AxiosInstanceWithToken.put('/bookings', { bookingId, endTime });
-            if (data?.success) {
-                refetch()
-                toast.success(data.message);
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: `You won't be able to revert this booking!`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#FF6E00",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, returned it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const bookingId = booking._id;
+                const endTime = `${new Date().getHours().toString().padStart(2, '0')}:${new Date().getMinutes().toString().padStart(2, '0')}`;
+                try {
+                    const { data } = await AxiosInstanceWithToken.put('/bookings', { bookingId, endTime });
+                    if (data?.success) {
+                        refetch()
+                        toast.success(data.message);
+                        setBookedLoader({ id: booking.id, loader: false });
+                    }
+                } catch (error) {
+                    if (!error?.response?.data?.success) {
+                        toast.error(error?.response?.data?.message || "Something went wrong!");
+                        setBookedLoader({ id: booking.id, loader: false });
+                    }
+                }
+            } else {
                 setBookedLoader({ id: booking.id, loader: false });
             }
-        } catch (error) {
-            if (!error?.response?.data?.success) {
-                toast.error(error?.response?.data?.message || "Something went wrong!");
-                setBookedLoader({ id: booking.id, loader: false });
-            }
-        }
+        });
+
     }
 
     return (

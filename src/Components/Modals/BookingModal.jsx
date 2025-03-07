@@ -11,7 +11,6 @@ const BookingModal = () => {
     const starTimeRef = useRef()
 
     const handleCloseModal = () => {
-        dateRef.current.value = ''
         setBookingModal(!bookingModal);
     }
 
