@@ -15,6 +15,7 @@ import AllCars from "../Pages/Cars/AllCars";
 import About from "../Pages/About/About";
 import Contact from "../Pages/Contact/Contact";
 import Profile from "../Pages/Profile/Profile";
+import UpdateCar from "../Pages/UpdateCar/UpdateCar";
 
 export const router = createBrowserRouter([
     {
@@ -56,6 +57,15 @@ export const router = createBrowserRouter([
                 element: <LoggedRoute>
                     <PrivateAdminRoute>
                         <CreateCar />
+                    </PrivateAdminRoute>
+                </LoggedRoute>,
+            },
+            {
+                path: "/update-car/:id",
+                loader: ({ params }) => fetch(`${import.meta.env.VITE_BASE_URL}/cars/${params.id}`),
+                element: <LoggedRoute>
+                    <PrivateAdminRoute>
+                        <UpdateCar />
                     </PrivateAdminRoute>
                 </LoggedRoute>,
             },

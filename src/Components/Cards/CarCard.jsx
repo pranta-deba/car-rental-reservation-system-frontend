@@ -21,7 +21,7 @@ const CarCard = ({ car }) => {
         <div className="relative border-[0.5px] border-white max-w-xs rounded-md shadow-md dark:bg-gray-50 dark:text-gray-800 transform hover:scale-105 transition duration-300">
 
             {user && user.role === "admin" && <div className="absolute top-2 right-2 flex gap-3">
-                <button title="Edit" className="bg-blue-600 p-2 rounded-2xl text-white cursor-pointer"><MdEditNote /></button>
+                <Link to={`/update-car/${_id}`} title="Edit" className="bg-blue-600 p-2 rounded-2xl text-white cursor-pointer"><MdEditNote /></Link>
                 <button disabled={deleteLoader} onClick={() => handleDeleteCar(_id)} title="Delete" className="bg-red-600 p-2 rounded-2xl text-white cursor-pointer">
                     {!deleteLoader ? <MdDelete /> : <TbLoader3 className='animate-spin' />}
                 </button>

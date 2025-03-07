@@ -3,6 +3,7 @@ import { CarDataContext } from '../../Providers/CarDataProvider';
 import Loader from '../../Components/Loader/Loader';
 import CarCard from '../../Components/Cards/CarCard';
 import BookingModal from '../../Components/Modals/BookingModal';
+import { AiOutlineCar } from 'react-icons/ai';
 
 const AllCars = () => {
     const { cars, loader: carsLoader, carsMeta, refetch, handleSearch, handleSort } = useContext(CarDataContext);
@@ -52,7 +53,7 @@ const AllCars = () => {
 
             <div className='w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 justify-center items-center'>
                 {!carsLoader && cars.length > 0 && cars.map((car) => (
-                    car.isDeleted && <CarCard key={car._id} car={car} />
+                    !car.isDeleted && <CarCard key={car._id} car={car} />
                 ))}
             </div>
 
