@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { IoCloseCircle } from "react-icons/io5";
 import uploadImageToImgBB from '../../Utils/uploadImage';
 import AxiosInstanceWithToken from '../../Config/AxiosInstanceWithToken';
 import { TbLoader3 } from 'react-icons/tb';
+import { CarDataContext } from '../../Providers/CarDataProvider';
 
 
 const CreateCar = () => {
@@ -11,6 +12,7 @@ const CreateCar = () => {
     const featureRef = useRef();
     const [uploadImage, setUploadImage] = useState('');
     const [createLoader, setCreateLoader] = useState(false);
+    const { refetch } = useContext(CarDataContext);
 
     const handleDeleteFeatures = (idx) => {
         setFeatures(features.filter((_, i) => i !== idx));
@@ -76,6 +78,7 @@ const CreateCar = () => {
                 setFeatures([]);
                 setUploadImage('');
                 e.target.reset();
+                refetch("", "", 0);
                 setCreateLoader(false);
             }
         } catch (error) {
