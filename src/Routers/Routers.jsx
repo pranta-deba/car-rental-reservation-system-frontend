@@ -12,6 +12,7 @@ import Booking from "../Pages/Booking/Booking";
 import LoggedRoute from "./Private/LoggedRoute";
 import CarDetails from "../Pages/CarDetails/CarDetails";
 import AllCars from "../Pages/Cars/AllCars";
+import About from "../Pages/About/About";
 
 export const router = createBrowserRouter([
     {
@@ -25,7 +26,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/about",
-                element: "about",
+                element: <About />,
             },
             {
                 path: "/contact",
