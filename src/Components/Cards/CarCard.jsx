@@ -1,18 +1,32 @@
 import { Link } from "react-router-dom";
 import useGetModalContext from "../../Hooks/UseContext/useGetModalContext";
+import { MdDelete, MdEditNote } from "react-icons/md";
+import { useContext } from "react";
+import { CarDataContext } from "../../Providers/CarDataProvider";
+import { TbLoader3 } from "react-icons/tb";
+import useGetContext from "../../Hooks/UseContext/useGetContext";
 
 const CarCard = ({ car }) => {
     const { name, pricePerHour, image, status, _id } = car || {};
     const { setBookingCar, bookingModal, setBookingModal } = useGetModalContext()
+    const { handleDeleteCar, deleteLoader } = useContext(CarDataContext);
+    const { user } = useGetContext()
 
     const handleModalShow = () => {
         setBookingCar(car);
         setBookingModal(!bookingModal);
     }
 
-
     return (
-        <div className="border-[0.5px] border-white max-w-xs rounded-md shadow-md dark:bg-gray-50 dark:text-gray-800 transform hover:scale-105 transition duration-300">
+        <div className="relative border-[0.5px] border-white max-w-xs rounded-md shadow-md dark:bg-gray-50 dark:text-gray-800 transform hover:scale-105 transition duration-300">
+
+            {user && user.role === "admin" && <div className="absolute top-2 right-2 flex gap-3">
+                <button title="Edit" className="bg-blue-600 p-2 rounded-2xl text-white cursor-pointer"><MdEditNote /></button>
+                <button disabled={deleteLoader} onClick={() => handleDeleteCar(_id)} title="Delete" className="bg-red-600 p-2 rounded-2xl text-white cursor-pointer">
+                    {!deleteLoader ? <MdDelete /> : <TbLoader3 className='animate-spin' />}
+                </button>
+            </div>}
+
             <img src={image} alt="" className="object-cover object-center w-full rounded-t-md h-44 dark:bg-gray-500" />
             <div className="flex flex-col justify-between p-3 space-y-3">
                 <div className="space-y-2">
