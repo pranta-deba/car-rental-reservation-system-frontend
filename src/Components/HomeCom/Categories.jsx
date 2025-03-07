@@ -23,7 +23,7 @@ const Categories = ({ cars, carsLoader }) => {
 
             <div>
                 {/* Custom Navigation Buttons at the Top */}
-                <div className="flex justify-between items-center mb-4 px-8">
+                <div className="flex justify-between items-center mb-4 px-2 md:px-8">
                     <button className="swiper-button-prev-custom bg-[#FF6E00] hover:bg-[#FF6E00A4] transition-all py-2 px-5 text-white rounded-2xl cursor-pointer">
                         <FaChevronLeft size={24} />
                     </button>

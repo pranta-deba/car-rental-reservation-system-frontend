@@ -40,7 +40,7 @@ const Cars = ({ cars, carsLoader, handleSort }) => {
             </div>
 
             <div className='text-center mt-4'>
-                <button className='bg-[#FF6E00] text-white px-4 py-2 rounded-sm'>
+                <button className='bg-[#FF6E00] text-white px-2 md:px-4 py-1 md:py-2 rounded-sm text-sm md:text-base'>
                     <Link to={"/cars"}>See All</Link>
                 </button>
             </div>
