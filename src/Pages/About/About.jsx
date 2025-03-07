@@ -1,6 +1,5 @@
 import React from 'react';
 import img1 from "../../assets/about-img1.jpg"
-import img2 from "../../assets/about-img-1.jpg"
 import { LuTarget } from 'react-icons/lu';
 import { PiTargetBold } from 'react-icons/pi';
 import author from "../../assets/author.png";
