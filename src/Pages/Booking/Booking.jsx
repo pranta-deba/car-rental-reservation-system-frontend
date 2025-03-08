@@ -66,9 +66,12 @@ const Booking = () => {
                             <p className="text-gray-600 mb-2">Total Cost: ${booking.totalCost}</p>
                             <p className="text-gray-600 mb-2">Address: {booking.user.address}</p>
                             <img src={booking.car.image} alt={booking.car.name} className="rounded-lg mt-2 h-52 w-full object-cover object-center" style={{ maxWidth: '100%' }} />
-                            <button onClick={() => handleCancelBooking(booking)} className="mt-4 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg focus:outline-none cursor-pointer">
+                            {!booking?.endTime && <button onClick={() => handleCancelBooking(booking)} className="mt-4 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg focus:outline-none cursor-pointer">
                                 {cancelBookedLoader.loader && cancelBookedLoader.id === booking._id ? <TbLoader3 className='animate-spin' /> : "Cancel"}
-                            </button>
+                            </button>}
+                            {booking?.endTime && <p className="inline-block mt-4 bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded-lg ">
+                                Complete
+                            </p>}
                         </div>
                     ))}
                 </div>

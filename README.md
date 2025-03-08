@@ -7,11 +7,11 @@
 
 ## Live Demo
 
-Visit the live version of the **Car Rental System** [here](https://example-link.com) _(Replace with your actual live link)_.
+Visit the live version of the **Car Rental System** [here](https://car-rental-system-2425e.web.app)
 
 ## Backend Repo
 
-You can find the backend repository [here](https://github.com/your-username/car-rental-backend) _(Replace with your actual backend repo link)_.
+You can find the backend repository [here](https://github.com/pranta-deba/car-rental-reservation-system-backend)
 
 ---
 

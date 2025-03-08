@@ -69,9 +69,6 @@ const AppProvider = ({ children }) => {
         return signOut(auth);
     }
 
-    console.log(user)
-
-
     const appValue = {
         user,
         setUser,
