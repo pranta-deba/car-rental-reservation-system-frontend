@@ -57,7 +57,7 @@ const AllCars = () => {
                 ))}
             </div>
 
-            {!carsLoader && cars.length > 0 && <div className="bg-white p-4 flex items-center flex-wrap justify-center">
+            {!carsLoader && cars.length > 0 && <div className="p-4 flex items-center flex-wrap justify-center">
                 <nav aria-label="Page navigation">
                     <ul className="inline-flex">
                         {/* Previous Button */}
@@ -65,7 +65,7 @@ const AllCars = () => {
                             <button
                                 onClick={() => handlePageChange(page - 1)}
                                 disabled={page === 1}
-                                className={`h-10 px-5 text-[#FF6E00] transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-green-100 ${page === 1 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                                className={`h-10 px-5 text-[#FF6E00] transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-[#FF6E00A4] ${page === 1 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                             >
                                 <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
                                     <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" fillRule="evenodd"></path>
@@ -80,7 +80,7 @@ const AllCars = () => {
                                 <li key={pageNumber}>
                                     <button
                                         onClick={() => handlePageChange(pageNumber)}
-                                        className={`h-10 px-5 transition-colors duration-150 focus:shadow-outline ${pageNumber === page ? 'bg-[#FF6E00] text-white border border-[#FF6E00]' : 'text-[#FF6E00] hover:bg-green-100 cursor-pointer'}`}
+                                        className={`h-10 px-5 transition-colors duration-150 focus:shadow-outline hover:bg-[#FF6E00A4] ${pageNumber === page ? 'bg-[#FF6E00] text-white border border-[#FF6E00]' : 'text-[#FF6E00] hover:bg-green-100 cursor-pointer'}`}
                                     >
                                         {pageNumber}
                                     </button>
@@ -93,7 +93,7 @@ const AllCars = () => {
                             <button
                                 onClick={() => handlePageChange(page + 1)}
                                 disabled={page === totalPage}
-                                className={`h-10 px-5 text-[#FF6E00] transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-green-100  ${page === totalPage ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                                className={`h-10 px-5 text-[#FF6E00] transition-colors duration-150 rounded-r-lg focus:shadow-outline hover:bg-[#FF6E00A4]  ${page === totalPage ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                             >
                                 <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
                                     <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" fillRule="evenodd"></path>

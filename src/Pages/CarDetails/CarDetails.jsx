@@ -34,7 +34,7 @@ const CarDetails = () => {
                 <div className="mt-4 space-y-3">
                     <div>
                         <span className="font-semibold">Color:</span>
-                        <span className="ml-2 px-3 py-1 rounded-full bg-gray-200">{car?.data?.color}</span>
+                        <span className="ml-2 px-3 py-1 rounded-full bg-gray-100 text-black">{car?.data?.color}</span>
                     </div>
                     <div>
                         <span className="font-semibold">Electric:</span>
@@ -49,7 +49,7 @@ const CarDetails = () => {
                     <span className="font-semibold">Features:</span>
                     <ul className="list-none mt-2 grid grid-cols-2 md:grid-cols-3 gap-2">
                         {car?.data?.features?.map((feature, index) => (
-                            <li key={index} className="p-2 bg-gray-100 rounded-lg shadow-md text-center">
+                            <li key={index} className="p-2 rounded-lg shadow-md text-center">
                                 {feature}
                             </li>
                         ))}

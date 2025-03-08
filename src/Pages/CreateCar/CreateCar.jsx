@@ -132,11 +132,11 @@ const CreateCar = () => {
                                 <div className='flex flex-wrap gap-3'>
                                     {
                                         features.length > 0 && features.map((feature, idx) => (
-                                            <div className='relative px-2 py-1 rounded-sm bg-amber-200' key={idx + 1}>
+                                            <div id='featuresList' className='relative px-2 py-1 rounded-sm bg-amber-200' key={idx + 1}>
                                                 <span className='text-sm'>
                                                     {feature}
                                                 </span>
-                                                <button type='button' className='absolute -top-4 -right-4 rounded-full p-1 cursor-pointer'>
+                                                <button id='featuresBtn' type='button' className='absolute -top-4 -right-4 rounded-full p-1 cursor-pointer'>
                                                     <IoCloseCircle size={25} onClick={() => handleDeleteFeatures(idx)} />
                                                 </button>
                                             </div>

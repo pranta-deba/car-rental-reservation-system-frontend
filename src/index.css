@@ -16,6 +16,21 @@ html.dark {
     color: white;
 }
 
+html.dark #date,
+html.dark #time {
+    color: black;
+}
+
+html.dark #isElectric option{
+    color: black;
+}
+html.dark #featuresList span{
+    color: black;
+}
+html.dark #featuresBtn {
+    color: red;
+}
+
 .primary-text {
     color: #FF6E00;
 }
@@ -31,10 +46,12 @@ html.dark {
 a.active {
     color: #FF8C00;
 }
+
 .stat-bg {
     background-color: rgba(0, 0, 0, 0.8);
-  }
-  
+}
+
+
 
 .border-animate {
     display: flex;
