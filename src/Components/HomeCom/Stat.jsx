@@ -3,10 +3,13 @@ import { AiFillLike } from 'react-icons/ai';
 import { FaBuilding, FaCar } from 'react-icons/fa';
 import { IoIosTime } from 'react-icons/io';
 import CountUp from 'react-countup';
+import factImg from "../../assets/fact-bg.jpg"
 
 const Stat = () => {
     return (
-        <div className={`bg-[url("./fact-bg.jpg")] bg-center bg-cover bg-fixed my-8 text-white`}>
+        <div style={{
+            backgroundImage: `url(${factImg})`
+        }} className={`bg-center bg-cover bg-fixed my-8 text-white`}>
             <div className='stat-bg'>
                 <div className='container mx-auto grid grid-cols-2 lg:grid-cols-4 justify-center items-center gap-6 lg:gap-40 md:px-10  py-10 md:py-32'>
                     <div className='flex flex-col justify-center items-center gap-4'>
