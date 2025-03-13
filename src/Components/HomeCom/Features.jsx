@@ -6,12 +6,12 @@ import { CiLollipop } from 'react-icons/ci';
 
 const Features = () => {
     return (
-        <div className='container mx-auto'>
+        <div className='container mx-auto overflow-hidden'>
             <SectionHeader titleSplit={true} title='PXrent Features'>
             At PXRent, we ensure a seamless and premium car rental experience with top-tier services designed for your convenience and satisfaction.
             </SectionHeader>
             <div className='flex justify-center items-center flex-col md:flex-row gap-4'>
-                <div>
+                <div data-aos="fade-right" data-aos-duration="1000">
                     <div className='flex items-center justify-center p-3 gap-4'>
                         <figure className="text-xl md:text-4xl bg-[#FF6E00] p-4 md:p-8 border-animate">
                             <FaTrophy />
@@ -31,10 +31,10 @@ const Features = () => {
                         </div>
                     </div>
                 </div>
-                <div className='flex-1/2'>
+                <div data-aos="flip-up" data-aos-duration="1000" className='flex-1/2'>
                     <img className='' src="./png5.webp" alt="Image....." />
                 </div>
-                <div>
+                <div data-aos="fade-left" data-aos-duration="1000">
                     <div className='flex items-center flex-row-reverse text-end justify-center p-3 gap-4'>
                         <figure className="text-xl md:text-4xl bg-[#FF6E00] p-4 md:p-8 border-animate">
                             <MdBookmarkAdded />

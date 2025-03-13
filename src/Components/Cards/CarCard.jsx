@@ -18,7 +18,7 @@ const CarCard = ({ car }) => {
     }
 
     return (
-        <div data-aos="fade-up" data-aos-duration="2000" className="relative border-[0.5px] border-white max-w-xs rounded-md shadow-md dark:bg-gray-50 dark:text-gray-800 transform hover:scale-105 transition duration-300">
+        <div className="relative border-[0.5px] border-white max-w-xs rounded-md shadow-md dark:bg-gray-50 dark:text-gray-800 transform hover:scale-105 transition duration-300">
 
             {user && user.role === "admin" && <div className="absolute top-2 right-2 flex gap-3">
                 <Link to={`/update-car/${_id}`} title="Edit" className="bg-blue-600 p-2 rounded-2xl text-white cursor-pointer"><MdEditNote /></Link>
