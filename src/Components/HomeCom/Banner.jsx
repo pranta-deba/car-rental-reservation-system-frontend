@@ -15,11 +15,11 @@ const Banner = ({ handleSearch }) => {
 
             {/* Overlay */}
             <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center text-center text-white px-4">
-                <h1 className="text-4xl md:text-6xl font-bold drop-shadow">Fast, <span className='primary-text'>Powerful</span>, Reliable</h1>
-                <p className="text-lg md:text-2xl mt-4">Find the perfect car for your journey — <br /> Book now and hit the road with confidence!</p>
+                <h1 data-aos="fade-up" data-aos-duration="2000" className="text-4xl md:text-6xl font-bold drop-shadow">Fast, <span className='primary-text'>Powerful</span>, Reliable</h1>
+                <p data-aos="fade-up" data-aos-duration="2500" className="text-lg md:text-2xl mt-4">Find the perfect car for your journey — <br /> Book now and hit the road with confidence!</p>
 
                 {/* Search Input */}
-                <form onSubmit={handleSearch} className="mt-6 flex items-center w-full max-w-lg bg-white rounded-full p-2 shadow-md">
+                <form data-aos="fade-up" data-aos-duration="3000" onSubmit={handleSearch} className="mt-6 flex items-center w-full max-w-lg bg-white rounded-full p-2 shadow-md">
                     <input
                         type="text"
                         name="search"
